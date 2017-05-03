@@ -155,34 +155,36 @@
 	</head>
 	<body>
 		<div class="jumbotron">
-			<h1 style="font-size: 6em;">My Personal Library</h1>
+			<h1 style="font-size: 5	em;">Sistem Penerimaan Mahasiswa</h1>
 			<div class="welcome-text">
-			<h2>Selamat Datang <b>
-				<?php
+			<h2>Administrator Manajemen Fakultas <b>
+				<!--<?php
 				if (isset($_SESSION["namauser"])){
 					echo $_SESSION["namauser"];
 				}
-				?></b>
+				?>--></b>
 			</h2>
 			</div>
 		</div>
 		<nav class="navbar navbar-inverse">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					 <a class="navbar-brand" href="#">My Personal Library</a>
+					 <a class="navbar-brand" href="#">SIRIMA</a>
 				</div>
 				<ul class="nav navbar-nav">
-					<?php
+					<!--<?php
 					if(isset($_SESSION['namauser']) && $_SESSION['role'] === 'user') {
 						echo '
 						<li><a href="home.php">Home</a></li>
 						';
 					}
-					?>
-					<li class="active"><a href="daftar.php">Daftar Buku</a></li>
+					?>-->
+					<li class="active"><a href="">Rekap Pendaftaran</a></li>
+					<li><a href="">Daftar Pelamar </a></li>
+					<li><a href="">Logout</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<?php
+					<!--<?php
 						if (isset($_SESSION["namauser"])){
 							echo "<li><a href='services/logout.php'><span class='glyphicon glyphicon-log-out'></span>Logout</a></li>";
 						}else if(!isset($_SESSION['namauser'])) {
@@ -201,18 +203,18 @@
 								</form>
 							';
 						}
-					?>
+					?>-->
 				</ul>
 			</div>
 		</nav>
 		<div class="container">
-            <?php
+            <!--<?php
                 if (isset($_SESSION["namauser"]) && $_SESSION["role"] === "admin"){
                     echo "<br><button type='button' class='btn-addbook btn btn-primary' data-toggle='modal' data-target='#insertModal'>
                         Add Buku
                     </button>";
                 }
-            ?>
+            ?>-->
             <div class="modal fade" id="insertModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -262,7 +264,7 @@
 		        </div>
 		    </div>
 		    <div id="products" class="row list-group">
-		    <?php
+		    <!--<?php
 		        $daftarbuku = daftarBuku("book");
 		        if(isset($_SESSION['namauser'])) {
 		        	$daftarpinjaman = selectRowsFromLoan();
@@ -305,7 +307,7 @@
 		    	</div>
 		       	';
 		      }
-		    ?>
+		    ?>-->
 		    </div>
             <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
@@ -337,7 +339,7 @@
 									</tbody>
 								</table>
 							</div>
-							<?php
+							<!--<?php
 								echo '
 									<div style="overflow-x:auto;">
 										<table class="table">
@@ -362,7 +364,7 @@
 									echo ')">Submit</button><br>';
 									echo '<br><div id="detailPinjam"></div>';
 								}
-                            ?>
+                            ?>-->
                         </div>
                     </div>
                 </div>

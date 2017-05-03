@@ -81,20 +81,20 @@
 </head>
 <body>
 	<div class="jumbotron">
-		<h1 style="font-size: 6em;">My Personal Library</h1>
+		<h1 style="font-size: 5em;">Sistem Penerimaan Mahasiswa</h1>
 		<div class="welcome-text">
-		<h2>Selamat Datang <b>
-			<?php
+		<h2>Pelamar <b>
+			<!--<?php
 			if (isset($_SESSION["namauser"])){
 				echo $_SESSION["namauser"];
 			}
-			?></b>
+			?>--></b>
 		</h2>
-		<?php
+		<!--<?php
 			if(!isset($_SESSION['namauser'])) {
 				echo '<button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#loginModal">Log in</button>';
 			}
-		?>
+		?>-->
 		</div>
 	</div>
 	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -124,29 +124,33 @@
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				 <a class="navbar-brand" href="#">My Personal Library</a>
+				 <a class="navbar-brand" href="#">SIRIMA</a>
 			</div>
 			<ul class="nav navbar-nav">
-				<?php
+				<!--<?php
 				if (isset($_SESSION["namauser"])) {
 					echo '
 					<li class="active"><a href="home.php">Home</a></li>
 					';
 				}
-				?>
-				<li><a href="daftar.php">Daftar Buku</a></li>
+				?>-->
+				<li><a href="">Membuat Pendaftaran</a></li>
+				<li><a href="">Riwayat Pendaftaran</a></li>
+				<li><a href="">Kartu Ujian</a></li>
+				<li><a href="">Hasil Seleksi</a></li>
+				<li><a href="">Logout</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<?php
+				<!--<?php
 					if (isset($_SESSION["namauser"])){
 						echo "<li><a href='services/logout.php'><span class='glyphicon glyphicon-log-out'></span>Logout</a></li>";
 					}
-				?>
+				?>-->
 			</ul>
 		</div>
 	</nav>
 	<div class="container">
-		<?php
+		<!--<?php
 			if(isset($_SESSION['namauser']) && $_SESSION['role'] === 'user') {
 				echo '
 					<div class="well well-sm">
@@ -159,9 +163,9 @@
 					</div>
 				';
 			}
-		?>
+		?>-->
 		<div id="products" class="row list-group">
-			<?php
+			<!--<?php
 			$arraybook = selectBooks();
 			for ($i=0; $i < count($arraybook); $i++) { 
 				$buku = selectAllFromBook($arraybook[$i]);
@@ -195,7 +199,7 @@
 					';
 				}
 			}
-			?>
+			?>-->
 		</div>
 		<div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
@@ -227,7 +231,7 @@
 									</tbody>
 								</table>
 							</div>
-							<?php
+							<!--<?php
 								echo '
 									<div style="overflow-x:auto;">
 										<table class="table">
@@ -252,7 +256,7 @@
 									echo ')">Submit</button><br>';
 									echo '<br><div id="detailPinjam"></div>';
 								}
-                            ?>
+                            ?>-->
                         </div>
                     </div>
                 </div>
