@@ -1,3 +1,20 @@
 .judul-table{
   font-weight: bold;
 }
+.detail-pendaftaran{
+  list-style-type: none;
+}
+.detail-container{
+  width: 50%;
+  margin: 0 auto;
+  background-color: lightblue;
+  padding: 10px;
+  outline-color: blue;
+  outline-style: dashed;
+  outline-width: medium;
+  margin-top: 25px;
+}
+
+.header{
+  margin-bottom: 25px;
+}
