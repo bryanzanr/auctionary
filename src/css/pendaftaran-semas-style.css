@@ -1,6 +1,9 @@
+#signup-header {
+  margin-top: 5em;
+}
 
 #input-jenjang {
-  margin-top: 10em;
+  margin-top: 3em;
   background-color: white;
   padding: 5em;
   box-shadow: 2px 2px 17px -2px grey;
