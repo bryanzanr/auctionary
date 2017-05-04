@@ -5,33 +5,33 @@
 		$username = "root";
 		$password = "";
 		$dbname = "test";
-		$conn = mysqli_connect($servername, $username, $password, $dbname);
+		$conn = pg_connect($servername, $username, $password, $dbname);
 		
 		if (!$conn) {
-			die("Connection failed: " + mysqli_connect_error());
+			die("Connection failed: " + pg_connect_error());
 		}
 		return $conn;
 	}
 
 	if(!isset($_SESSION["namauser"])) {
-		header("Location: daftar.php");
+		header("Location: index.php");
 	}
 
 	function selectRowsFromLoan() {
 		$conn = connectDB();
 
 		$sql = "SELECT * FROM loan WHERE user_id = ".$_SESSION["user_id"]."";
-		if(!$result = mysqli_query($conn, $sql)) {
+		if(!$result = pg_query($conn, $sql)) {
 			die("Error: $sql");
 		}
-		mysqli_close($conn);
+		pg_close($conn);
 		return $result;
 	} 
 
 	function selectBooks() {
 		$pinjam = selectRowsFromLoan();
 		$arrayloan = array();
-		while ($baris = mysqli_fetch_row($pinjam)) {
+		while ($baris = pg_fetch_row($pinjam)) {
 			array_push($arrayloan, $baris[1]);
 		}
 		return $arrayloan;
@@ -41,10 +41,10 @@
 		$conn = connectDB();
 
 		$sql = "SELECT * FROM book WHERE book_id = $book_id";
-		if(!$result = mysqli_query($conn, $sql)) {
+		if(!$result = pg_query($conn, $sql)) {
 			die("Error: $sql");
 		}
-		mysqli_close($conn);
+		pg_close($conn);
 		return $result;
 	}
 
@@ -53,13 +53,13 @@
 		$sqlloan = "DELETE FROM loan WHERE book_id = $book_id AND user_id = $user_id";
 
 		$sqlbook = "UPDATE book SET quantity = quantity+1 where book_id = $book_id";
-		if(!$result = mysqli_query($conn, $sqlloan)) {
+		if(!$result = pg_query($conn, $sqlloan)) {
 			die("Error: $sqlloan");
 		}
-		if(!$result = mysqli_query($conn, $sqlbook)) {
+		if(!$result = pg_query($conn, $sqlbook)) {
 			die("Error: $sqlbook");
 		}
-		mysqli_close($conn);
+		pg_close($conn);
 		header("Location: home.php");
 	}
 
@@ -92,9 +92,10 @@
 		</h2>
 		<!--<?php
 			if(!isset($_SESSION['namauser'])) {
-				echo '<button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#loginModal">Log in</button>';
+				echo '';
 			}
 		?>-->
+		<button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#loginModal">LOGIN</button>
 		</div>
 	</div>
 	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -102,7 +103,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="insertModalLabel">Login</h4>
+					<h4 class="modal-title" id="insertModalLabel">LOGIN</h4>
 				</div>
 				<div class="modal-body">
 					<form action="index.php" method="post">
@@ -115,7 +116,7 @@
 							<input type="password" class="form-control" id="insert-password" name="password" placeholder="Password">
 						</div>
 						<input type="hidden" id="insert-command" name="command" value="insert">
-						<button type="submit" class="btn btn-primary">Login</button>
+						<button type="submit" class="btn btn-primary">LOGIN</button>
 					</form>
 				</div>
 			</div>
@@ -124,7 +125,7 @@
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				 <a class="navbar-brand" href="#">SIRIMA</a>
+				 <a class="navbar-brand" href="pelamar.html">SIRIMA</a>
 			</div>
 			<ul class="nav navbar-nav">
 				<!--<?php
@@ -134,16 +135,16 @@
 					';
 				}
 				?>-->
-				<li><a href="">Membuat Pendaftaran</a></li>
-				<li><a href="">Riwayat Pendaftaran</a></li>
+				<li><a href="pendaftaran-semas.html">Membuat Pendaftaran</a></li>
+				<li><a href="riwayat-pendaftaran.html">Riwayat Pendaftaran</a></li>
 				<li><a href="">Kartu Ujian</a></li>
 				<li><a href="">Hasil Seleksi</a></li>
-				<li><a href="">Logout</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
+				<li><a href='services/logout.php'><span class='glyphicon glyphicon-log-out'></span>Logout</a></li>
 				<!--<?php
 					if (isset($_SESSION["namauser"])){
-						echo "<li><a href='services/logout.php'><span class='glyphicon glyphicon-log-out'></span>Logout</a></li>";
+						echo "";
 					}
 				?>-->
 			</ul>
@@ -151,16 +152,84 @@
 	</nav>
 	<div class="container">
 		<!--<?php
+	        if (isset($_SESSION["namauser"]) && $_SESSION["role"] === "admin"){
+	            echo "";
+	        }
+	    ?>-->
+	    <br><button type='button' class='btn-addbook btn btn-primary' data-toggle='modal' data-target='#insertModal'>
+            REGISTER
+        </button>
+	    <div class="modal fade" id="insertModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	        <div class="modal-dialog" role="document">
+	            <div class="modal-content">
+	                <div class="modal-header">
+	                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	                    <h4 class="modal-title black-modal" id="insertModalLabel">Pendaftaran Akun Pelamar</h4>
+	                </div>
+	                <div class="modal-body">
+	                    <form action="admin.php" method="post">
+	                        <div class="form-group">
+	                            <label for="namauser">Username</label>
+	                            <input type="text" class="form-control" id="insert-namauser" name="username" placeholder="Masukkan Username Anda ..." required>
+	                        </div>
+	                        <div class="form-group">
+	                            <label for="katakunci">Password</label>
+	                            <input type="password" class="form-control" id="insert-katakunci" name="kataKunci" placeholder="Masukkan Password Anda ..." required>
+	                        </div>
+	                        <div class="form-group">
+	                            <label for="ulangpassword">Ulangi password</label>
+	                            <input type="password" class="form-control" id="insert-ulangpassword" name="ulangPassword" placeholder="Masukkan Kembali Password Anda ..." required>
+	                        </div>
+	                        <div class="form-group">
+	                            <label for="namalengkap">Nama lengkap</label>
+	                            <input type="text" class="form-control" id="insert-namalengkap" name="fullname" placeholder="Masukkan Nama Lengkap Anda ..." required>
+	                        </div>
+	                        <div class="form-group">
+	                            <label for="nomorktp">Nomor Identitas</label>
+	                            <input type="text" class="form-control" id="insert-nomorktp" name="nomorKtp" placeholder="Masukkan Nomor Identitas Anda ..." required>
+	                        </div>
+	                        <div class="form-group">
+	                        	<label for="jenisKelamin">Jenis kelamin</label>
+	                        	<select name="jenisKelamin" required>
+	                        		<option value="Pria">Laki-laki</option>
+	                        		<option value="Wanita">Perempuan</option>
+	                        	</select>
+	                        </div>
+	                        <div class="form-group">
+	                        	<label for="tanggalLahir">Tanggal lahir</label>
+	                        	<input type="date" class="form-control" id="insert-ulangtahun" name="ulangTahun" placeholder="Masukkan Tanggal Lahir Anda ..." required>
+	                        </div>
+	                        <div class="form-group">
+	                            <label for="alamatrumah">Alamat</label>
+	                            <input type="text" class="form-control" id="insert-alamatrumah" name="alamatRumah" placeholder="Masukkan Alamat Anda ..." required>
+	                        </div>
+	                        <div class="form-group">
+	                            <label for="emailaddress">Alamat email</label>
+	                            <input type="email" class="form-control" id="insert-emailaddress" name="emailAddress" placeholder="Masukkan Alamat Email Anda ..." required>
+	                        </div>
+	                        <div class="form-group">
+	                            <label for="repeatemail">Ulangi email</label>
+	                            <input type="email" class="form-control" id="insert-repeatemail" name="repeatEmail" placeholder="Masukkan Kembali Alamat Email Anda ..." required>
+	                        </div>
+	                        <input type="hidden" id="insert-command" name="command" value="insert">
+	                        <button type="submit" class="btn btn-primary">DAFTAR</button>
+	                    </form>
+	                </div>
+	            </div>
+	        </div>
+    	</div>
+		<div class="well well-sm">
+			<strong>Tampilan</strong>
+			<div class="btn-group">
+				<a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
+				</span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span
+				class="glyphicon glyphicon-th"></span>Grid</a>
+			</div>
+		</div>
+		<!--<?php
 			if(isset($_SESSION['namauser']) && $_SESSION['role'] === 'user') {
 				echo '
-					<div class="well well-sm">
-						<strong>Tampilan</strong>
-						<div class="btn-group">
-							<a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
-							</span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span
-							class="glyphicon glyphicon-th"></span>Grid</a>
-						</div>
-					</div>
+					
 				';
 			}
 		?>-->
@@ -169,7 +238,7 @@
 			$arraybook = selectBooks();
 			for ($i=0; $i < count($arraybook); $i++) { 
 				$buku = selectAllFromBook($arraybook[$i]);
-				while ($row = mysqli_fetch_row($buku)) {
+				while ($row = pg_fetch_row($buku)) {
 					echo '
 					<div class="item  col-xs-4 col-lg-4">
 						<div class="thumbnail">
