@@ -14,7 +14,7 @@
         </div>
         <ul class="nav navbar-nav">
           <li><a href="#">Home</a></li>
-          <li class="active"><a href="#">Melihat Hasil Seleksi</a></li>
+          <li class="active"><a href="#">Melihat Kartu Ujian</a></li>
           <li><a href="#">Page 2</a></li>
         </ul>
         <form class="navbar-form navbar-right">
@@ -25,17 +25,18 @@
         </form>
       </div>
     </nav>
-    <div class="container container-form-kartu-ujian">
-      <h1 class="text-center header-form-kartu-ujian"><b>Form Lihat Hasil Seleksi</b></h1>
-      <div class="form-lihat-kartu">
-        <form class="form-inline">
-          <div class="form-group">
-            <label for="email">Id Pendaftaran : </label>
-            <input type="text" class="form-control" id="email">
-          </div>
-          <button type="submit" class="btn btn-default">LIHAT</button>
-        </form>
-      </div>
+    <?php include 'header.php'; ?>
+    <div class="container">
+        <h1 class="text-center"><b>Kartu Ujian</b></h1>
+          <div class="detail-container">
+            <ul class="detail-pendaftaran">
+              <li>Id Pendaftaran : 1234</li>
+              <li>Nama Lengkap :  Tania Putri</li>
+              <li>No Kartu Ujian : 1234512345</li>
+              <li>Lokasi ujian : Kampus ABC, Depok</li>
+              <li>Waktu ujian : 3 Juni 2017 08.00 WIB - 3 Juni 2017 10.00 WIB</li>
+            </ul>
+        </div>
     </div>
   </body>
   <footer class="footer-fixed">

@@ -2,11 +2,12 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>SiR1Ma</title>
+    <title>Detail Pendaftaran UUI</title>
     <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="src/css/style.css">
   </head>
   <body>
+  <!--
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -25,26 +26,24 @@
         </form>
       </div>
     </nav>
+	-->
+	 <?php include 'header.php' ;?>
     <div class="container">
-        <h1 class="text-center"><b>Detail Pendaftaran Semas Pasca Sarjana</b></h1>
+        <h1 class="text-center"><b>Detail Pendaftaran UUI</b></h1>
           <div class="detail-container">
             <ul class="detail-pendaftaran">
               <li>Id Pendaftaran : 1234</li>
               <li>Periode : 1-2017</li>
-              <li>No Kartu Ujian : 1234512345</li>
-              <li>Nilai TPA : 400</li>
-              <li>Nilai TOEFL : 550</li>
-              <li>Jenjang Terakhir : S2</li>
-              <li>Asal Universitas : Kampus XYZ</li>
-              <li>Alamat Universitas : Jl. Pertiwi 34, Jakarta</li>
-              <li>Prodi Terakhir : Ilmu Hukum</li>
-              <li>Nilai IPK : 3.86</li>
+              <li>Rapot : rapot_123.pdf</li>
+              <li>Surat Rekomendasi : rekomendasi_123.pdf</li>
+              <li>Asal sekolah : SMA 2 depok</li>
+              <li>Jenis SMA :IPA</li>
+              <li>Alamat sekolah : Jl. Veteran 15, Depok</li>
+              <li>NISN : 9923453456</li>
               <li>Tanggal lulus : 2 Desember 2015</li>
-              <li>Prodi pilihan : S3 Ilmu Hukum Reguler</li>
-              <li>Nama Rekomender : Setyawati</li>
-              <li>Proposal penelitian : proposal_1.pdf</li>
-              <li>Lokasi kota ujian : Depok</li>
-              <li>Lokasi tempat ujian : Kampus ABC</li>
+              <li>Nilai UAN : 38.75</li>
+              <li>Prodi pilihan 1 : S1 Ilmu Komputer Reguler</li>
+              <li>Prodi pilihan 2 : S1 Biologi Reguler</li>
             </ul>
             <p class="text-center"><b><a href="#">KEMBALI</a></b></p>
         </div>

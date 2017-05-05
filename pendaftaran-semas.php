@@ -10,6 +10,7 @@
     <title>Pendaftaran Semas UI</title>
   </head>
   <body>
+    <?php include 'header.php'; ?>
     <div class="container">
       <div class="row">
         <div class="col-md-2"></div>

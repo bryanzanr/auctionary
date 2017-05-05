@@ -25,6 +25,7 @@
         </form>
       </div>
     </nav>
+    <?php include 'header.php'; ?>
     <div class="container">
         <h1 class="text-center"><b>Hasil Seleksi</b></h1>
           <div class="detail-container">

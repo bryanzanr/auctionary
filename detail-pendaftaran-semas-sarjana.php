@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="src/css/style.css">
   </head>
   <body>
+  <!--
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -25,6 +26,8 @@
         </form>
       </div>
     </nav>
+	-->
+	 <?php include 'header.php' ;?>
     <div class="container">
         <h1 class="text-center"><b>Detail Pendaftaran Semas Sarjana</b></h1>
           <div class="detail-container">

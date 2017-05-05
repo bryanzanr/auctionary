@@ -14,7 +14,7 @@
         </div>
         <ul class="nav navbar-nav">
           <li><a href="#">Home</a></li>
-          <li class="active"><a href="#">Melihat Kartu Ujian</a></li>
+          <li class="active"><a href="#">Melihat Hasil Seleksi</a></li>
           <li><a href="#">Page 2</a></li>
         </ul>
         <form class="navbar-form navbar-right">
@@ -25,8 +25,9 @@
         </form>
       </div>
     </nav>
+   <?php include 'header.php' ;?>
     <div class="container container-form-kartu-ujian">
-      <h1 class="text-center header-form-kartu-ujian"><b>Form Lihat Kartu Ujian</b></h1>
+      <h1 class="text-center header-form-kartu-ujian"><b>Form Lihat Hasil Seleksi</b></h1>
       <div class="form-lihat-kartu">
         <form class="form-inline">
           <div class="form-group">
