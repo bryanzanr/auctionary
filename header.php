@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title></title>
     <!-- Compiled and minified CSS -->
+	<link href="https://fonts.googleapis.com/css?family=Inknut+Antiqua" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
 
   <link rel="stylesheet" type="text/css" href="/src/css/header.css">
@@ -21,15 +22,17 @@
   <link rel="stylesheet" href="src/css/header.css">
   </head>
   <header>
-    <nav>
+  <div class="navbar-fixed">
+    <nav class="blue">
    <div class="nav-wrapper">
-     <a href="#!" class="brand-logo"><img src="src/image/Sirima UI.png" alt=""><span>SIRIMA</span></a>
+     <a href="#!" id="title" class="brand-logo"><img src="src/image/Sirima UI.png" alt="">SIRIMA</a>
      <ul class="right hide-on-med-and-down">
        <li><a href="#"><span class="glyphicon glyphicon-user"></span></a></li>
        <li><a href="#"><span class="glyphicon glyphicon-log-out"></span></a></li>
      </ul>
    </div>
  </nav>
+ <div>
   </header>
   <body>
   </body>

@@ -3,5 +3,13 @@
 }
 
 img{
-	width: 30px;
+	margin-left: 10px;
+	width: 29px;
+}
+
+#title{
+	font-family: 'inknut antiqua',serif;
+	text-decoration: none !important;
+	color: black;
+	font-size: 35px;
 }
