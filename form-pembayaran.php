@@ -7,6 +7,9 @@
     <link rel="stylesheet" type="text/css" href="src/css/form-pembayaran.css">
     <title>Pendaftaran SEMAS</title>
   </head>
+  <?php
+    include 'header.html';
+  ?>
   <body>
     <div class="container">
       <div class="row">
