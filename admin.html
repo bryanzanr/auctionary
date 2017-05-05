@@ -1,5 +1,5 @@
 <!--<?php
-	session_start();
+	/*session_start();
 	function connectDB() {
 		$servername = "localhost";
 		$username = "root";
@@ -142,7 +142,7 @@
 			balikBuku($_POST['book_id'],$_SESSION["user_id"]);
 		}
 	}
-	
+	*/
 ?>-->
 <!DOCTYPE html>
 <html lang="en">
@@ -155,6 +155,7 @@
 	</head>
 	<body>
 		<div class="jumbotron">
+			<center><img src="src/image/Sirima UI.png"/></center>
 			<h1 style="font-size: 5	em;">Sistem Penerimaan Mahasiswa</h1>
 			<div class="welcome-text">
 			<h2>Administrator Manajemen Fakultas <b>
@@ -207,11 +208,11 @@
 						';
 					}
 					?>-->
-					<li><a href="">Rekap Pendaftaran</a></li>
-					<li><a href="">Daftar Pelamar </a></li>
+					<li><a href="form-rekap-pendaftaran.php">Rekap Pendaftaran</a></li>
+					<li><a href="form-pemilihan-prodi-pelamar.php">Daftar Pelamar </a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href='services/logout.php'><span class='glyphicon glyphicon-log-out'></span>Logout</a></li>
+					<li><a href='index.php'><span class='glyphicon glyphicon-log-out'></span>Logout</a></li>
 					<!--<?php
 						if (isset($_SESSION["namauser"])){
 							echo "";

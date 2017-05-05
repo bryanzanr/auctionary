@@ -1,4 +1,5 @@
 <!--<?php
+	/*
 	session_start();
 	function connectDB() {
 		$servername = "localhost";
@@ -68,7 +69,7 @@
 			balikBuku($_POST['book_id'],$_SESSION["user_id"]);
 		}
 	}
-
+*/
 ?>-->
 <!DOCTYPE html>
 <html lang="en">
@@ -81,6 +82,7 @@
 </head>
 <body>
 	<div class="jumbotron">
+		<center><img src="src/image/Sirima UI.png"/></center>
 		<h1 style="font-size: 5em;">Sistem Penerimaan Mahasiswa</h1>
 		<div class="welcome-text">
 		<h2>Pelamar <b>
@@ -134,13 +136,13 @@
 					';
 				}
 				?>-->
-				<li><a href="pendaftaran-semas.html">Membuat Pendaftaran</a></li>
-				<li><a href="riwayat-pendaftaran.html">Riwayat Pendaftaran</a></li>
-				<li><a href="">Kartu Ujian</a></li>
-				<li><a href="">Hasil Seleksi</a></li>
+				<li><a href="pendaftaran-semas.php">Membuat Pendaftaran</a></li>
+				<li><a href="riwayat-pendaftaran.php">Riwayat Pendaftaran</a></li>
+				<li><a href="kartu-ujian.php">Kartu Ujian</a></li>
+				<li><a href="hasil-seleksi.php">Hasil Seleksi</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href='services/logout.php'><span class='glyphicon glyphicon-log-out'></span>Logout</a></li>
+				<li><a href='index.php'><span class='glyphicon glyphicon-log-out'></span>Logout</a></li>
 				<!--<?php
 					if (isset($_SESSION["namauser"])){
 						echo "";

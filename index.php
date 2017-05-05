@@ -62,6 +62,7 @@
 	</head>
 	<body>
 		<div class="row">
+			<center><img src="src/image/Sirima UI.png"/></center>
 			<h1 class="title">SISTEM PENERIMAAN MAHASISWA</h1>
 			<button type="button" class="btn btn-lg btn-default" data-toggle="modal" data-target="#insertModal">
 				LOGIN
@@ -85,7 +86,7 @@
 								<input type="password" class="form-control" id="insert-password" name="password" placeholder="Password" required>
 							</div>
 							<input type="hidden" id="insert-command" name="command" value="insert">
-							<a href="pelamar.html"><button type="button" class="btn btn-primary">LOGIN</button></a>
+							<a href="pelamar.html"><button type="submit" class="btn btn-primary">LOGIN</button></a>
 						</form>
 					</div>
 				</div>
