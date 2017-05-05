@@ -8,6 +8,7 @@
     <title>Rekap Pendaftaran</title>
   </head>
   <body>
+  <!--
   <nav class="navbar navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -26,6 +27,8 @@
         </form>
       </div>
     </nav>
+	-->
+	 <?php include 'header.php' ;?>
     <div class="container">
       <div class="row">
         <div class="col-md-3"></div>

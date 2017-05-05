@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="src/css/style.css">
   </head>
   <body>
+   <?php include 'header.php' ;?>
     <div class="container container-form-kartu-ujian">
       <h1 class="text-center header-form-kartu-ujian">Form Lihat Kartu Ujian</h1>
       <div class="form-lihat-kartu">

@@ -8,6 +8,8 @@
     <title>Pemilihan Prodi</title>
   </head>
   <body>
+   <?php include 'header.php' ;?>
+  <!--
   <nav class="navbar navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -26,6 +28,7 @@
         </form>
       </div>
     </nav>
+	-->
     <div class="container">
       <div class="row">
         <div class="col-md-3"></div>
