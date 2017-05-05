@@ -1,0 +1,13 @@
+#payment-header {
+  margin: 3em 0 0 0;
+}
+
+p {
+  font-size: 2em;
+}
+
+#payment {
+  box-shadow: 2px 2px 17px -2px grey;
+  padding: 2em;
+  margin: 0 0 0 0;
+}
