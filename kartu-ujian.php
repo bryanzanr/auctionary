@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="src/css/style.css">
   </head>
   <body>
+    <?php include 'header.php'; ?>
     <div class="container">
         <h1 class="text-center">Kartu Ujian</h1>
           <div class="detail-container">

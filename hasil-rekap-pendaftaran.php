@@ -10,7 +10,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-
+<!--
 <nav class="navbar navbar-inverse">
 	<div class="container-fluid">
 		<div class="navbar-header">
@@ -24,7 +24,8 @@
 		</ul>
 	</div>
 </nav>
-
+-->
+<?php include 'header.php'; ?>
 <div class="container">
 
 	<h2>Hasil Rekap Pendaftaran</h2>
@@ -79,7 +80,7 @@
 		<li><a href="#">5</a></li>
 	  </ul>
 	</div>
-  
+
 </div>
 
 </body>

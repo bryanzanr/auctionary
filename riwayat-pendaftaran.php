@@ -7,6 +7,7 @@
     <title>Riwayat Pendaftaran</title>
   </head>
   <body>
+    <!--
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -25,6 +26,8 @@
         </form>
       </div>
     </nav>
+  -->
+  <?php include 'header.php'; ?>
     <div class="container">
       <h1 class="text-center">Riwayat Pendaftaran</h1>
       <div class="col-md-8 col-md-offset-2">

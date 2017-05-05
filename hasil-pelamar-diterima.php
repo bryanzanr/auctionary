@@ -10,7 +10,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-
+<!--
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
 	<div class="navbar-header">
@@ -29,7 +29,8 @@
 	</form>
   </div>
 </nav>
-
+-->
+<?php include 'header.php'; ?>
 <div class="container">
 
 	<h2 class="text-center">Lihat Pelamar Diterima</h2>
