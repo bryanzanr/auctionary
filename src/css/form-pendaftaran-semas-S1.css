@@ -1,0 +1,9 @@
+#header-form {
+  margin: 5em 0 2em 0;
+}
+
+#form-body {
+  box-shadow: 2px 2px 17px -2px grey;
+  padding: 2em;
+  margin: 0 0 0 0;
+}
