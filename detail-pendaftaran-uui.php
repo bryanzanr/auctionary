@@ -29,7 +29,7 @@
 	-->
 	 <?php include 'header.php' ;?>
     <div class="container">
-        <h1 class="text-center">Detail Pendaftaran UUI</h1>
+        <h1 class="text-center"><b>Detail Pendaftaran UUI</b></h1>
           <div class="detail-container">
             <ul class="detail-pendaftaran">
               <li>Id Pendaftaran : 1234</li>
@@ -49,4 +49,7 @@
         </div>
     </div>
   </body>
+  <footer class="footer-fixed">
+		<h4>&copy; 2017 Kelompok A03. All rights reserved</h4>
+	</footer>
 </html>

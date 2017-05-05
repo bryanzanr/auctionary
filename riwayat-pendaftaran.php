@@ -29,9 +29,9 @@
   -->
   <?php include 'header.php'; ?>
     <div class="container">
-      <h1 class="text-center">Riwayat Pendaftaran</h1>
-      <div class="col-md-8 col-md-offset-2">
-        <table class="table table-bordered table-hover">
+      <h1 class="text-center"><b>Riwayat Pendaftaran</b></h1>
+      <div class="col-md-8 col-md-offset-2 container-table">
+        <table class="table table-striped table-hover">
           <thead>
             <tr>
               <td class="judul-table">Id Pendaftaran</td>
@@ -53,7 +53,7 @@
               <td>UUI</td>
               <td>S1 Fisika Reguler</td>
               <td>S1 Biologi Reguler</td>
-              <td>Kosong</td>
+              <td>KOSONG</td>
             </tr>
             <tr>
               <td><a href="#">5193</a></td>
@@ -75,6 +75,76 @@
               <td>S1 Biologi Reguler</td>
               <td>S1 Fisika Reguler</td>
             </tr>
+            <tr>
+              <td><a href="#">5677</a></td>
+              <td>2</td>
+              <td>2017</td>
+              <td>KOSONG</td>
+              <td>UUI</td>
+              <td>S1 Fisika Reguler</td>
+              <td>S1 Biologi Reguler</td>
+              <td>KOSONG</td>
+            </tr>
+            <tr>
+              <td><a href="#">5192</a></td>
+              <td>2</td>
+              <td>2017</td>
+              <td>123451348</td>
+              <td>SEMAS PASCASARJANA</td>
+              <td>S2 Ilmu Komputer Reguler</td>
+              <td>KOSONG</td>
+              <td>KOSONG</td>
+            </tr>
+            <tr>
+              <td><a href="#">1235</a></td>
+              <td>1</td>
+              <td>2017</td>
+              <td>1282755345</td>
+              <td>SEMAS SARJANA</td>
+              <td>S1 Ilmu Komputer Reguler</td>
+              <td>S1 Biologi Reguler</td>
+              <td>S1 Fisika Reguler</td>
+            </tr>
+            <tr>
+              <td><a href="#">5679</a></td>
+              <td>2</td>
+              <td>2017</td>
+              <td>KOSONG</td>
+              <td>UUI</td>
+              <td>S1 Fisika Reguler</td>
+              <td>S1 Biologi Reguler</td>
+              <td>KOSONG</td>
+            </tr>
+            <tr>
+              <td><a href="#">5194</a></td>
+              <td>2</td>
+              <td>2017</td>
+              <td>1292312348</td>
+              <td>SEMAS PASCASARJANA</td>
+              <td>S2 Ilmu Komputer Reguler</td>
+              <td>KOSONG</td>
+              <td>KOSONG</td>
+            </tr>
+            <tr>
+              <td><a href="#">1238</a></td>
+              <td>1</td>
+              <td>2017</td>
+              <td>1234512900</td>
+              <td>SEMAS SARJANA</td>
+              <td>S1 Ilmu Komputer Reguler</td>
+              <td>S1 Biologi Reguler</td>
+              <td>S1 Fisika Reguler</td>
+            </tr>
+            <tr>
+              <td><a href="#">1876</a></td>
+              <td>1</td>
+              <td>2017</td>
+              <td>1234466345</td>
+              <td>SEMAS SARJANA</td>
+              <td>S1 Ilmu Komputer Reguler</td>
+              <td>S1 Biologi Reguler</td>
+              <td>S1 Fisika Reguler</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -82,13 +152,17 @@
     <div class="container">
       <div class="col-md-8 col-md-offset-2">
         <ul class="pagination">
+          <li><a href="#">&laquo</a></li>
           <li class="active"><a href="#">1</a></li>
           <li><a href="#">2</a></li>
           <li><a href="#">3</a></li>
-          <li><a href="#">4</a></li>
-          <li><a href="#">5</a></li>
+          <li><a href="#">&raquo</a></li>
         </ul>
       </div>
     </div>
   </body>
+  <footer>
+		<hr>
+		<h4>&copy; 2017 Kelompok A03. All rights reserved</h4>
+	</footer>
 </html>
