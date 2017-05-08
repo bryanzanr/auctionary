@@ -1,5 +1,5 @@
-<!--<?php
-	/*
+<?php
+	
 	session_start();
 	function connectDB() {
 		$servername = "localhost";
@@ -69,8 +69,8 @@
 			balikBuku($_POST['book_id'],$_SESSION["user_id"]);
 		}
 	}
-*/
-?>-->
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -86,17 +86,17 @@
 		<h1 style="font-size: 5em;">Sistem Penerimaan Mahasiswa</h1>
 		<div class="welcome-text">
 		<h2>Pelamar <b>
-			<!--<?php
+			<?php
 			if (isset($_SESSION["namauser"])){
 				echo $_SESSION["namauser"];
 			}
-			?>--></b>
+			?></b>
 		</h2>
-		<!--<?php
+		<?php
 			if(!isset($_SESSION['namauser'])) {
-				echo '<button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#loginModal">LOGIN</button>';
+				header(index.php);
 			}
-		?>-->
+		?>
 		</div>
 	</div>
 	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -129,34 +129,23 @@
 				 <a class="navbar-brand" href="pelamar.html">SIRIMA</a>
 			</div>
 			<ul class="nav navbar-nav">
-				<!--<?php
-				if (isset($_SESSION["namauser"])) {
-					echo '
-					<li class="active"><a href="home.php">Home</a></li>
-					';
-				}
-				?>-->
 				<li><a href="pendaftaran-semas.php">Membuat Pendaftaran</a></li>
 				<li><a href="riwayat-pendaftaran.php">Riwayat Pendaftaran</a></li>
 				<li><a href="kartu-ujian.php">Kartu Ujian</a></li>
 				<li><a href="hasil-seleksi.php">Hasil Seleksi</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href='index.php'><span class='glyphicon glyphicon-log-out'></span>Logout</a></li>
-				<!--<?php
+				<?php
 					if (isset($_SESSION["namauser"])){
-						echo "";
+						echo "<li><a href='index.php'><span class='glyphicon glyphicon-log-out'></span>Logout</a></li>";
+					}else {
+						echo '<button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#loginModal">LOGIN</button>'
 					}
-				?>-->
+				?>
 			</ul>
 		</div>
 	</nav>
 	<div class="container">
-		<!--<?php
-	        if (isset($_SESSION["namauser"]) && $_SESSION["role"] === "admin"){
-	            echo "";
-	        }
-	    ?>-->
 	    <br><button type='button' class='btn-addbook btn btn-primary' data-toggle='modal' data-target='#insertModal'>
             REGISTER
         </button>
@@ -227,13 +216,6 @@
 				class="glyphicon glyphicon-th"></span>Grid</a>
 			</div>
 		</div>
-		<!--<?php
-			if(isset($_SESSION['namauser']) && $_SESSION['role'] === 'user') {
-				echo '
-					
-				';
-			}
-		?>-->
 		<div id="products" class="row list-group">
 			<!--<?php
 			$arraybook = selectBooks();

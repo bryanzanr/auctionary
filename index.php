@@ -1,12 +1,6 @@
-<!--<?php
+<?php
 	
-	/*
-	$databaseServer = "localhost";
-	$databaseUsername = "root";
-	$databasePassword = "";
-	$databaseName = "test";
-	
-	$databaseConnection = mysqli_connect($databaseServer, $databaseUsername, $databasePassword, $databaseName);
+	$databaseConnection = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=postgres");
 	
 	if (!$databaseConnection){
 		die ("Connection to database failed");
@@ -20,25 +14,24 @@
 		$username = $_POST['username'];
 		$password = $_POST['password']; 
 				
-		$queryLogin = "SELECT * FROM user WHERE username = '$username' and password = '$password'";
-		$resultLogin = mysqli_query($databaseConnection,$queryLogin);
+		$queryLogin = "SELECT * FROM SIRIMA.AKUN WHERE username = '$username' and password = '$password'";
+		$resultLogin = pg_query($databaseConnection,$queryLogin);
 		
-		$row = mysqli_fetch_array($resultLogin,MYSQLI_ASSOC);
-		$active = $row['active'];
-		  
-		$count = mysqli_num_rows($resultLogin);
+		$row = pg_fetch_array($resultLogin);
+		
+		$count = pg_num_rows($resultLogin);
 		// If result matched $myusername and $mypassword, table row must be 1 row
 			
 		if($count == 1) {
 			
-			$_SESSION["user_id"] = $row["user_id"];
-			$_SESSION["namauser"] = $row["username"];
-			$_SESSION["role"] = $row["role"];
-			
-			if ($row["role"] === "user"){
-				header("Location: home.php");
+			$_SESSION["namauser"] = $row[0];
+			$_SESSION["role"] = $row[1];
+			$_SESSION["katakunci"] = $row[2];
+
+			if ($_SESSION["role"] === f){
+				header("Location: pelamar.php");
 			}else{
-				header("Location: daftar.php");
+				header("Location: admin.php");
 			}
 
 		}else {
@@ -47,10 +40,10 @@
 		
 	}
 	
-	mysqli_close($databaseConnection);
+	pg_close($databaseConnection);
 	
-	*/
-?>-->
+	
+?>
 <!DOCTYPE html>
 <html lang="id">
 	<head>
