@@ -1,3 +1,11 @@
+<?php
+  include('src/php/classes/DBConnection.class.php');
+
+  $DBConnection = new DBConnection("postgres", "postgres", "Maumasukin1");
+  $conn = $DBConnection->conn;
+
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -9,21 +17,25 @@
   </head>
   <body>
    <?php include 'header.php' ;?>
-   
+
     <div class="container">
       <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-10">
+          <?php
+
+            echo "<h1>".$_GET['jenjang']."</h1>";
+          ?>
           <h1 class="text-center" id="header-form">Form Pendaftaran SEMAS Sarjana</h1>
           <div id="form-body">
             <form class="" action="index.html" method="post">
                 Asal Sekolah: <br>
                 <input class="form-control" type="text" name="asal-sekolah" value=""> <br>
                 Jenis SMA: <br>
-                <select class="form-control" id="jenis-sma">
-                  <option>IPA</option>
-                  <option>IPS</option>
-                  <option>Bahasa</option>
+                <select class="form-control" name="jenis-sma">
+                  <option value="IPA">IPA</option>
+                  <option value="IPS">IPS</option>
+                  <option value="Bahasa">Bahasa</option>
                 </select> <br>
                 Alamat Sekolah: <br>
                 <input class="form-control" type="text" name="alamat-sekolah" value=""> <br>

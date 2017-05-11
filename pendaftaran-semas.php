@@ -17,15 +17,15 @@
         <div class="col-md-8">
           <h1 class="text-center" id="signup-header">Pendaftaran Seleksi Masuk</h1>
           <div id="input-jenjang">
-            <div class="form-group text-center">
+            <form class="form-group text-center" method="get" action="form-pendaftaran-semas-S1.php">
               <label for="jenjang" class="form-element">Pilih jenjang:</label>
-              <select class="form-control form-element" id="jenjang">
-                <option>S1</option>
-                <option>S2</option>
-                <option>S3</option>
+              <select class="form-control form-element" name="jenjang">
+                <option >S1</option>
+                <option >S2</option>
+                <option >S3</option>
               </select>
-              <button class="btn btn-default form-element">PILIH</button>
-            </div>
+              <input type="submit" class="btn btn-default form-element" value="PILIH"></input>
+            </form>
           </div>
         </div>
         </div>
