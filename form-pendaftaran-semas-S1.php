@@ -1,7 +1,7 @@
 <?php
   include('src/php/classes/DBConnection.class.php');
 
-  $DBConnection = new DBConnection("postgres", "postgres", "Maumasukin1");
+  $DBConnection = new DBConnection("sirimaDB", "postgres", "Maumasukin1");
   $conn = $DBConnection->conn;
 
 ?>
@@ -23,8 +23,11 @@
         <div class="col-md-1"></div>
         <div class="col-md-10">
           <?php
-
-            echo "<h1>".$_GET['jenjang']."</h1>";
+            $jenjang = $_GET['jenjang'];
+            echo "<h1>".$jenjang."</h1>";
+            if ($conn) {
+              echo "kicut";
+            }
           ?>
           <h1 class="text-center" id="header-form">Form Pendaftaran SEMAS Sarjana</h1>
           <div id="form-body">
@@ -45,21 +48,49 @@
                 <input class="form-control" type="text" name="nilai-uan" value=""><br>
                 Prodi Pilihan 1: <br>
                 <select class="form-control" name="prodi-pilihan1">
+                <?php
+                  $queryP1 = "SELECT ps.nama, ps.jenis_kelas
+                              FROM sirima.program_studi ps
+                              WHERE ps.jenjang = '$jenjang'";
+                  $resultProdi1 = pg_query($conn, $queryP1);
+                  $prodiS1 = pg_fetch_all($resultProdi1);
+                  foreach ($prodiS1 as $value) {
+                    echo "<option value=".$value['nama'].">".$value['nama']." - ".$value['jenis_kelas']."</option>";
+                  }
+                ?>
+                </select> <br>
+                <!--
+                <select class="form-control" name="prodi-pilihan1">
                   <option >Prodi 1</option>
                   <option >Prodi 2</option>
                   <option >Prodi 3</option>
                 </select> <br>
+                -->
                 Prodi Pilihan 2: <br>
                 <select class="form-control" name="prodi-pilihan2">
-                  <option >Prodi 1</option>
-                  <option >Prodi 2</option>
-                  <option >Prodi 3</option>
+                  <?php
+                    $queryP1 = "SELECT ps.nama, ps.jenis_kelas
+                                FROM sirima.program_studi ps
+                                WHERE ps.jenjang = '$jenjang'";
+                    $resultProdi1 = pg_query($conn, $queryP1);
+                    $prodiS1 = pg_fetch_all($resultProdi1);
+                    foreach ($prodiS1 as $value) {
+                      echo "<option value=".$value['nama'].">".$value['nama']." - ".$value['jenis_kelas']."</option>";
+                    }
+                  ?>
                 </select> <br>
                 Prodi Pilihan 3: <br>
                 <select class="form-control" name="prodi-pilihan3">
-                  <option >Prodi 1</option>
-                  <option >Prodi 2</option>
-                  <option >Prodi 3</option>
+                  <?php
+                    $queryP1 = "SELECT ps.nama, ps.jenis_kelas
+                                FROM sirima.program_studi ps
+                                WHERE ps.jenjang = '$jenjang'";
+                    $resultProdi1 = pg_query($conn, $queryP1);
+                    $prodiS1 = pg_fetch_all($resultProdi1);
+                    foreach ($prodiS1 as $value) {
+                      echo "<option value=".$value['nama'].">".$value['nama']." - ".$value['jenis_kelas']."</option>";
+                    }
+                  ?>
                 </select> <br>
                 Lokasi Kota Ujian: <br>
                 <select class="form-control" name="lokasi-kota-ujian">
