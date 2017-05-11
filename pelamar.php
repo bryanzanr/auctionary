@@ -2,71 +2,31 @@
 	
 	session_start();
 	function connectDB() {
-		$servername = "localhost";
-		$username = "root";
-		$password = "";
-		$dbname = "test";
-		$conn = pg_connect($servername, $username, $password, $dbname);
-		
-		if (!$conn) {
-			die("Connection failed: " + pg_connect_error());
+
+		$databaseConnection = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=postgres");
+	
+		if (!$databaseConnection){
+			die ("Connection to database failed");
 		}
-		return $conn;
+		return $databaseConnection;
+	
 	}
 
 	if(!isset($_SESSION["namauser"])) {
 		header("Location: index.php");
 	}
 
-	function selectRowsFromLoan() {
-		$conn = connectDB();
+	function keluar(){
 
-		$sql = "SELECT * FROM loan WHERE user_id = ".$_SESSION["user_id"]."";
-		if(!$result = pg_query($conn, $sql)) {
-			die("Error: $sql");
-		}
-		pg_close($conn);
-		return $result;
-	} 
+		session_unset();
+		session_destroy();
+		header("Location: index.php");
 
-	function selectBooks() {
-		$pinjam = selectRowsFromLoan();
-		$arrayloan = array();
-		while ($baris = pg_fetch_row($pinjam)) {
-			array_push($arrayloan, $baris[1]);
-		}
-		return $arrayloan;
-	}
-
-	function selectAllFromBook($book_id) {
-		$conn = connectDB();
-
-		$sql = "SELECT * FROM book WHERE book_id = $book_id";
-		if(!$result = pg_query($conn, $sql)) {
-			die("Error: $sql");
-		}
-		pg_close($conn);
-		return $result;
-	}
-
-	function balikBuku($book_id, $user_id) {
-		$conn = connectDB($book_id, $user_id);
-		$sqlloan = "DELETE FROM loan WHERE book_id = $book_id AND user_id = $user_id";
-
-		$sqlbook = "UPDATE book SET quantity = quantity+1 where book_id = $book_id";
-		if(!$result = pg_query($conn, $sqlloan)) {
-			die("Error: $sqlloan");
-		}
-		if(!$result = pg_query($conn, $sqlbook)) {
-			die("Error: $sqlbook");
-		}
-		pg_close($conn);
-		header("Location: home.php");
 	}
 
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-		if ($_POST['command'] === 'balik') {
-			balikBuku($_POST['book_id'],$_SESSION["user_id"]);
+		if($_POST['command'] === 'logout') {
+			keluar();
 		}
 	}
 
@@ -92,11 +52,6 @@
 			}
 			?></b>
 		</h2>
-		<?php
-			if(!isset($_SESSION['namauser'])) {
-				header(index.php);
-			}
-		?>
 		</div>
 	</div>
 	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -137,9 +92,8 @@
 			<ul class="nav navbar-nav navbar-right">
 				<?php
 					if (isset($_SESSION["namauser"])){
-						echo "<li><a href='index.php'><span class='glyphicon glyphicon-log-out'></span>Logout</a></li>";
-					}else {
-						echo '<button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#loginModal">LOGIN</button>'
+						echo "<form action='pelamar.php' method='post'><button type='submit' class='btn btn-'><span class='glyphicon glyphicon-log-out'></span>Logout</button><input type='hidden' id='logout-command' name='command' value='logout'></form>";
+						//echo "<li><a href='index.php'><span class='glyphicon glyphicon-log-out'></span>Logout</a></li>";
 					}
 				?>
 			</ul>

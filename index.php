@@ -35,7 +35,7 @@
 			}
 
 		}else {
-			echo  "<script type='text/javascript'>alert('Login Gagal');</script>";
+			echo  "<script type='text/javascript'>alert('username/password salah');</script>";
 		}
 		
 	}
