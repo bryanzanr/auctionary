@@ -6,10 +6,17 @@
 		die ("Connection to database failed");
 	}
 	
+	session_start();
+
+	/*if ($_SESSION["role"] === 't'){
+		header("Location: admin.php");
+	}else if ($_SESSION["role"] === 'f'){
+		header("Location: pelamar.php");
+	}*/
+
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
 		
 		// username and password sent from form 
-		session_start();
 		
 		$username = $_POST['username'];
 		$password = $_POST['password']; 
@@ -24,13 +31,15 @@
 			
 		if($count == 1) {
 			
-			$_SESSION["namauser"] = $row[0];
 			$_SESSION["role"] = $row[1];
 			$_SESSION["katakunci"] = $row[2];
 
 			if ($_SESSION["role"] === f){
+				$_SESSION["namauser"] = $row[0];
 				header("Location: pelamar.php");
 			}else{
+				$arr = explode(".",$row[0]);
+				$_SESSION["namauser"] = $arr[1];
 				header("Location: admin.php");
 			}
 
@@ -39,7 +48,7 @@
 		}
 		
 	}
-	
+
 	pg_close($databaseConnection);
 	
 	

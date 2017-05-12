@@ -14,6 +14,10 @@
 
 	if(!isset($_SESSION["namauser"])) {
 		header("Location: index.php");
+	}else{
+		if ($_SESSION["role"] === 't'){
+			header("Location: admin.php");
+		}
 	}
 
 	function keluar(){
@@ -54,34 +58,10 @@
 		</h2>
 		</div>
 	</div>
-	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="insertModalLabel">LOGIN</h4>
-				</div>
-				<div class="modal-body">
-					<form action="index.php" method="post">
-						<div class="form-group">
-							<label for="username">Username</label>
-							<input type="text" class="form-control" id="insert-username" name="username" placeholder="Username">
-						</div>
-						<div class="form-group">
-							<label for="password">Password</label>
-							<input type="password" class="form-control" id="insert-password" name="password" placeholder="Password">
-						</div>
-						<input type="hidden" id="insert-command" name="command" value="insert">
-						<button type="submit" class="btn btn-primary">LOGIN</button>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				 <a class="navbar-brand" href="pelamar.html">SIRIMA</a>
+				 <a class="navbar-brand" href="pelamar.php">SIRIMA</a>
 			</div>
 			<ul class="nav navbar-nav">
 				<li><a href="pendaftaran-semas.php">Membuat Pendaftaran</a></li>
@@ -92,8 +72,7 @@
 			<ul class="nav navbar-nav navbar-right">
 				<?php
 					if (isset($_SESSION["namauser"])){
-						echo "<form action='pelamar.php' method='post'><button type='submit' class='btn btn-'><span class='glyphicon glyphicon-log-out'></span>Logout</button><input type='hidden' id='logout-command' name='command' value='logout'></form>";
-						//echo "<li><a href='index.php'><span class='glyphicon glyphicon-log-out'></span>Logout</a></li>";
+						echo "<form class='form-inline navbar-form navbar-left' action='admin.php' method='post'><button type='submit' class='btn btn-'><span class='glyphicon glyphicon-log-out'></span>Logout</button><input type='hidden' id='logout-command' name='command' value='logout'></form>";
 					}
 				?>
 			</ul>
