@@ -76,72 +76,13 @@
 				</ul>
 			</div>
 		</nav>
-		<div class="container">
-            <div class="modal fade" id="insertModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-		        <div class="modal-dialog" role="document">
-		            <div class="modal-content">
-		                <div class="modal-header">
-		                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		                    <h4 class="modal-title black-modal" id="insertModalLabel">Pendaftaran Akun Pelamar</h4>
-		                </div>
-		                <div class="modal-body">
-		                    <form action="admin.php" method="post">
-		                        <div class="form-group">
-		                            <label for="namauser">Username</label>
-		                            <input type="text" class="form-control" id="insert-namauser" name="username" placeholder="Masukkan Username Anda ..." required>
-		                        </div>
-		                        <div class="form-group">
-		                            <label for="katakunci">Password</label>
-		                            <input type="password" class="form-control" id="insert-katakunci" name="kataKunci" placeholder="Masukkan Password Anda ..." required>
-		                        </div>
-		                        <div class="form-group">
-		                            <label for="ulangpassword">Ulangi password</label>
-		                            <input type="password" class="form-control" id="insert-ulangpassword" name="ulangPassword" placeholder="Masukkan Kembali Password Anda ..." required>
-		                        </div>
-		                        <div class="form-group">
-		                            <label for="namalengkap">Nama lengkap</label>
-		                            <input type="text" class="form-control" id="insert-namalengkap" name="fullname" placeholder="Masukkan Nama Lengkap Anda ..." required>
-		                        </div>
-		                        <div class="form-group">
-		                            <label for="nomorktp">Nomor Identitas</label>
-		                            <input type="text" class="form-control" id="insert-nomorktp" name="nomorKtp" placeholder="Masukkan Nomor Identitas Anda ..." required>
-		                        </div>
-		                        <div class="form-group">
-		                        	<label for="jenisKelamin">Jenis kelamin</label>
-		                        	<select name="jenisKelamin" required>
-		                        		<option value="Pria">Laki-Laki</option>
-		                        		<option value="Wanita">Perempuan</option>
-		                        	</select>
-		                        </div>
-		                        <div class="form-group">
-		                        	<label for="tanggalLahir">Tanggal lahir</label>
-		                        	<input type="date" class="form-control" id="insert-ulangtahun" name="ulangTahun" placeholder="Masukkan Tanggal Lahir Anda ..." required>
-		                        </div>
-		                        <div class="form-group">
-		                            <label for="alamatrumah">Alamat</label>
-		                            <input type="text" class="form-control" id="insert-alamatrumah" name="alamatRumah" placeholder="Masukkan Alamat Anda ..." required>
-		                        </div>
-		                        <div class="form-group">
-		                            <label for="emailaddress">Alamat email</label>
-		                            <input type="email" class="form-control" id="insert-emailaddress" name="emailAddress" placeholder="Masukkan Alamat Email Anda ..." required>
-		                        </div>
-		                        <div class="form-group">
-		                            <label for="repeatemail">Ulangi email</label>
-		                            <input type="email" class="form-control" id="insert-repeatemail" name="repeatEmail" placeholder="Masukkan Kembali Alamat Email Anda ..." required>
-		                        </div>
-		                        <input type="hidden" id="insert-command" name="command" value="insert">
-		                        <button type="submit" class="btn btn-primary">DAFTAR</button>
-		                    </form>
-		                </div>
-		            </div>
-		        </div>
-	    	</div>
+		<div class="container"> 
             <div class="well well-sm">
 		       <strong>Tampilan</strong>
 		        <div class="btn-group">
-		            <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
-		            </span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span
-		                class="glyphicon glyphicon-th"></span>Grid</a>
+		            <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-leaf">
+		            </span>Black</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span
+		                class="glyphicon glyphicon-fire"></span>Blue</a>
 		        </div>
 		    </div>
 		    <div id="products" class="row list-group">
@@ -251,13 +192,13 @@
                 </div>
             </div>
         </div>
+        <div id="footer">
+			<hr>
+			<h4>&copy; 2017 Kelompok A03. All rights reserved</h4>
+		</div>
 		<script src="src/js/jquery-3.1.0.min.js"> </script>
 		<script src="bootstrap/dist/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="src/js/admin.js"></script>
 		<script type="text/javascript" src="src/js/ajax.js"></script>		
 	</body>
-	<footer>
-		<hr>
-		<h4>&copy; 2017 Kelompok A03. All rights reserved</h4>
-	</footer>
 </html>							

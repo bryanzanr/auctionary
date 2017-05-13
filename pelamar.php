@@ -43,6 +43,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="src/css/pelamar.css">
+	<script type="text/javascript" src="src/js/jquery-3.1.0.min.js"></script>
+	<script type="text/javascript" src="bootstrap/dist/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="src/js/pelamar.js"></script>	
+	<script type="text/javascript" src="src/js/ajax.js"></script>
 </head>
 <body>
 	<div class="jumbotron">
@@ -93,15 +97,15 @@
 	                    <form action="admin.php" method="post">
 	                        <div class="form-group">
 	                            <label for="namauser">Username</label>
-	                            <input type="text" class="form-control" id="insert-namauser" name="username" placeholder="Masukkan Username Anda ..." required>
+	                            <input type="text" class="form-control" id="insert-namauser" name="username" placeholder="Masukkan Username Anda ..." required pattern="[A-Za-z0-9.]*" title="Username harus berupa huruf, angka, atau titik">
 	                        </div>
 	                        <div class="form-group">
 	                            <label for="katakunci">Password</label>
-	                            <input type="password" class="form-control" id="insert-katakunci" name="kataKunci" placeholder="Masukkan Password Anda ..." required>
+	                            <input type="password" class="form-control" id="insert-katakunci" name="kataKunci" placeholder="Masukkan Password Anda ..." required pattern=".{6,}" title="Password minimal 6 karakter">
 	                        </div>
 	                        <div class="form-group">
 	                            <label for="ulangpassword">Ulangi password</label>
-	                            <input type="password" class="form-control" id="insert-ulangpassword" name="ulangPassword" placeholder="Masukkan Kembali Password Anda ..." required>
+	                            <input type="password" class="form-control" id="insert-ulangpassword" name="ulangPassword" placeholder="Masukkan Kembali Password Anda ..." required pattern=".{6,}" title="Password minimal 6 karakter">
 	                        </div>
 	                        <div class="form-group">
 	                            <label for="namalengkap">Nama lengkap</label>
@@ -109,7 +113,7 @@
 	                        </div>
 	                        <div class="form-group">
 	                            <label for="nomorktp">Nomor Identitas</label>
-	                            <input type="text" class="form-control" id="insert-nomorktp" name="nomorKtp" placeholder="Masukkan Nomor Identitas Anda ..." required>
+	                            <input type="text" class="form-control" id="insert-nomorktp" name="nomorKtp" placeholder="Masukkan Nomor Identitas Anda ..." required pattern="[0-9]{16}">
 	                        </div>
 	                        <div class="form-group">
 	                        	<label for="jenisKelamin">Jenis kelamin</label>
@@ -128,11 +132,11 @@
 	                        </div>
 	                        <div class="form-group">
 	                            <label for="emailaddress">Alamat email</label>
-	                            <input type="email" class="form-control" id="insert-emailaddress" name="emailAddress" placeholder="Masukkan Alamat Email Anda ..." required>
+	                            <input type="email" class="form-control" id="insert-emailaddress" name="emailAddress" placeholder="Masukkan Alamat Email Anda ..." required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="Masukkan email yang benar">
 	                        </div>
 	                        <div class="form-group">
 	                            <label for="repeatemail">Ulangi email</label>
-	                            <input type="email" class="form-control" id="insert-repeatemail" name="repeatEmail" placeholder="Masukkan Kembali Alamat Email Anda ..." required>
+	                            <input type="email" class="form-control" id="insert-repeatemail" name="repeatEmail" placeholder="Masukkan Kembali Alamat Email Anda ..." required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="Masukkan email yang benar">
 	                        </div>
 	                        <input type="hidden" id="insert-command" name="command" value="insert">
 	                        <button type="submit" class="btn btn-primary">DAFTAR</button>
@@ -144,9 +148,9 @@
 		<div class="well well-sm">
 			<strong>Tampilan</strong>
 			<div class="btn-group">
-				<a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
-				</span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span
-				class="glyphicon glyphicon-th"></span>Grid</a>
+				<a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-leaf">
+				</span>Black</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span
+				class="glyphicon glyphicon-fire"></span>Blue</a>
 			</div>
 		</div>
 		<div id="products" class="row list-group">
@@ -247,10 +251,6 @@
                 </div>
             </div>
 	</div>
-	<script type="text/javascript" src="src/js/jquery-3.1.0.min.js"></script>
-	<script type="text/javascript" src="bootstrap/dist/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="src/js/pelamar.js"></script>	
-	<script type="text/javascript" src="src/js/ajax.js"></script>
 </body>
 <footer>
 	<hr>
