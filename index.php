@@ -1,32 +1,25 @@
 <?php
 
-	$databaseConnection = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=pop08521125");
+	$databaseConnection = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=postgres");
 
 	if (!$databaseConnection){
 		die ("Connection to database failed");
 	}
-<<<<<<< HEAD
-
-	if($_SERVER["REQUEST_METHOD"] == "POST") {
-
-		// username and password sent from form
-		session_start();
-
-=======
 	
 	session_start();
 
-	/*if ($_SESSION["role"] === 't'){
-		header("Location: admin.php");
-	}else if ($_SESSION["role"] === 'f'){
-		header("Location: pelamar.php");
-	}*/
+	if (isset($_SESSION["namauser"])){
+		if ($_SESSION["role"] === 't'){
+			header("Location: admin.php");
+		}else if ($_SESSION["role"] === 'f'){
+			header("Location: pelamar.php");
+		}
+	}
 
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
 		
 		// username and password sent from form 
 		
->>>>>>> 6aef4abe72c7e884aff309f67bafe66a1e296433
 		$username = $_POST['username'];
 		$password = $_POST['password'];
 
@@ -39,12 +32,7 @@
 		// If result matched $myusername and $mypassword, table row must be 1 row
 
 		if($count == 1) {
-<<<<<<< HEAD
 
-			$_SESSION["namauser"] = $row[0];
-=======
-			
->>>>>>> 6aef4abe72c7e884aff309f67bafe66a1e296433
 			$_SESSION["role"] = $row[1];
 			$_SESSION["katakunci"] = $row[2];
 
