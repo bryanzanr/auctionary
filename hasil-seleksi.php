@@ -1,3 +1,9 @@
+<?php
+include('src/php/classes/DBConnection.class.php');
+
+$DBConn = new DBConnection("postgres", "postgres", "pop08521125");
+$conn = $DBConn->conn;
+ ?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -7,35 +13,42 @@
     <link rel="stylesheet" type="text/css" href="src/css/style.css">
   </head>
   <body>
-    <nav class="navbar navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#">SiR1Ma</a>
-        </div>
-        <ul class="nav navbar-nav">
-          <li><a href="#">Home</a></li>
-          <li class="active"><a href="#">Melihat Hasil Seleksi</a></li>
-          <li><a href="#">Page 2</a></li>
-        </ul>
-        <form class="navbar-form navbar-right">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Search">
-          </div>
-          <button type="submit" class="btn btn-default">Submit</button>
-        </form>
-      </div>
-    </nav>
     <?php include 'header.php'; ?>
     <div class="container">
         <h1 class="text-center"><b>Hasil Seleksi</b></h1>
           <div class="detail-container">
-            <ul class="detail-pendaftaran">
-              <li>Id Pendaftaran : 1234</li>
-              <li>Nama Lengkap : Tania Putri</li>
-              <li>Status : LULUS / TIDAK LULUS / BELUM LULUS</li>
-              <li>Prodi : S1 Ilmu Komputer Reguler</li>
-              <li>Npm : 1507345625</li>
-            </ul>
+            <?php
+            $idpen = $_POST['id-pendaftaran'];
+            $query = " SELECT id, nama_lengkap, p.status_lulus, nama, npm, jenis_kelas, ps.jenjang
+            from sirima.pendaftaran AS p, sirima.pendaftaran_prodi AS pp,  sirima.program_studi AS ps,  sirima.pelamar AS pl
+            where p.id = pp.id_pendaftaran and pp.kode_prodi = ps.kode and p.pelamar = pl.username and id = $idpen;";
+            $result = pg_query($conn,$query);
+            $row = pg_fetch_all($result);
+            if($row==null){
+              echo "ID tidak ditemukan";
+            }else{
+              foreach ($row as $value){
+                $statuslulus = "";
+                if($value['status_lulus'] == null){
+                  $statuslulus = 'BELUM LULUS';
+                }elseif ($value['status_lulus'] == 't') {
+                  $statuslulus = 'LULUS';
+                }else {
+                  $statuslulus = 'TIDAK LULUS';
+                }
+                echo "<ul class = 'detail-pendaftaran'>";
+                echo "<li>Id Pendaftaran : ".$value['id']."</li>";
+                echo "<li>Nama Lengkap : ".$value['nama_lengkap']."</li>";
+                echo "<li>Status : ".$statuslulus."</li>";
+                if($statuslulus == 'LULUS'){
+                  echo "<li>Prodi : ".$value['jenjang']." ".$value['nama']." ".$value['jenis_kelas']."</li>";
+                  echo "<li>Npm : ".$value['npm']."</li>";
+                }
+                echo "</ul>";
+              }
+            }
+
+             ?>
         </div>
     </div>
   </body>

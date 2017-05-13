@@ -1,29 +1,29 @@
 <?php
-	
-	$databaseConnection = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=postgres");
-	
+
+	$databaseConnection = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=pop08521125");
+
 	if (!$databaseConnection){
 		die ("Connection to database failed");
 	}
-	
+
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
-		
-		// username and password sent from form 
+
+		// username and password sent from form
 		session_start();
-		
+
 		$username = $_POST['username'];
-		$password = $_POST['password']; 
-				
+		$password = $_POST['password'];
+
 		$queryLogin = "SELECT * FROM SIRIMA.AKUN WHERE username = '$username' and password = '$password'";
 		$resultLogin = pg_query($databaseConnection,$queryLogin);
-		
+
 		$row = pg_fetch_array($resultLogin);
-		
+
 		$count = pg_num_rows($resultLogin);
 		// If result matched $myusername and $mypassword, table row must be 1 row
-			
+
 		if($count == 1) {
-			
+
 			$_SESSION["namauser"] = $row[0];
 			$_SESSION["role"] = $row[1];
 			$_SESSION["katakunci"] = $row[2];
@@ -37,12 +37,12 @@
 		}else {
 			echo  "<script type='text/javascript'>alert('username/password salah');</script>";
 		}
-		
+
 	}
-	
+
 	pg_close($databaseConnection);
-	
-	
+
+
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -59,7 +59,7 @@
 			<h1 class="title">SISTEM PENERIMAAN MAHASISWA</h1>
 			<button type="button" class="btn btn-lg btn-default" data-toggle="modal" data-target="#insertModal">
 				LOGIN
-			</button>	
+			</button>
 		</div>
 		<div class="modal fade" id="insertModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 			<div class="modal-dialog" role="document">

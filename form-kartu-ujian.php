@@ -7,32 +7,14 @@
     <link rel="stylesheet" type="text/css" href="src/css/style.css">
   </head>
   <body>
-    <nav class="navbar navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#">SiR1Ma</a>
-        </div>
-        <ul class="nav navbar-nav">
-          <li><a href="#">Home</a></li>
-          <li class="active"><a href="#">Melihat Kartu Ujian</a></li>
-          <li><a href="#">Page 2</a></li>
-        </ul>
-        <form class="navbar-form navbar-right">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Search">
-          </div>
-          <button type="submit" class="btn btn-default">Submit</button>
-        </form>
-      </div>
-    </nav>
    <?php include 'header.php' ;?>
     <div class="container container-form-kartu-ujian">
       <h1 class="text-center header-form-kartu-ujian"><b>Form Lihat Kartu Ujian</b></h1>
       <div class="form-lihat-kartu">
-        <form class="form-inline">
+        <form class="form-inline" action="kartu-ujian.php" method="post">
           <div class="form-group">
             <label for="email">Id Pendaftaran : </label>
-            <input type="text" class="form-control" id="email">
+            <input type="text" class="form-control" id="nopen" name="nomor-pendaftaran">
           </div>
           <button type="submit" class="btn btn-default">LIHAT</button>
         </form>

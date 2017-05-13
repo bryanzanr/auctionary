@@ -1,3 +1,9 @@
+<?php
+include('src/php/classes/DBConnection.class.php');
+
+$DBConn = new DBConnection("postgres", "postgres", "pop08521125");
+$conn = $DBConn->conn;
+ ?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -7,26 +13,6 @@
     <title>Riwayat Pendaftaran</title>
   </head>
   <body>
-    <!--
-    <nav class="navbar navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#">SiR1Ma</a>
-        </div>
-        <ul class="nav navbar-nav">
-          <li><a href="#">Home</a></li>
-          <li class="active"><a href="#">Riwayat Pendaftaran</a></li>
-          <li><a href="#">Page 2</a></li>
-        </ul>
-        <form class="navbar-form navbar-right">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Search">
-          </div>
-          <button type="submit" class="btn btn-default">Submit</button>
-        </form>
-      </div>
-    </nav>
-  -->
   <?php include 'header.php'; ?>
     <div class="container">
       <h1 class="text-center"><b>Riwayat Pendaftaran</b></h1>
@@ -45,106 +31,22 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><a href="#">5678</a></td>
-              <td>2</td>
-              <td>2017</td>
-              <td>KOSONG</td>
-              <td>UUI</td>
-              <td>S1 Fisika Reguler</td>
-              <td>S1 Biologi Reguler</td>
-              <td>KOSONG</td>
-            </tr>
-            <tr>
-              <td><a href="#">5193</a></td>
-              <td>2</td>
-              <td>2017</td>
-              <td>1234512348</td>
-              <td>SEMAS PASCASARJANA</td>
-              <td>S2 Ilmu Komputer Reguler</td>
-              <td>KOSONG</td>
-              <td>KOSONG</td>
-            </tr>
-            <tr>
-              <td><a href="#">1234</a></td>
-              <td>1</td>
-              <td>2017</td>
-              <td>1234512345</td>
-              <td>SEMAS SARJANA</td>
-              <td>S1 Ilmu Komputer Reguler</td>
-              <td>S1 Biologi Reguler</td>
-              <td>S1 Fisika Reguler</td>
-            </tr>
-            <tr>
-              <td><a href="#">5677</a></td>
-              <td>2</td>
-              <td>2017</td>
-              <td>KOSONG</td>
-              <td>UUI</td>
-              <td>S1 Fisika Reguler</td>
-              <td>S1 Biologi Reguler</td>
-              <td>KOSONG</td>
-            </tr>
-            <tr>
-              <td><a href="#">5192</a></td>
-              <td>2</td>
-              <td>2017</td>
-              <td>123451348</td>
-              <td>SEMAS PASCASARJANA</td>
-              <td>S2 Ilmu Komputer Reguler</td>
-              <td>KOSONG</td>
-              <td>KOSONG</td>
-            </tr>
-            <tr>
-              <td><a href="#">1235</a></td>
-              <td>1</td>
-              <td>2017</td>
-              <td>1282755345</td>
-              <td>SEMAS SARJANA</td>
-              <td>S1 Ilmu Komputer Reguler</td>
-              <td>S1 Biologi Reguler</td>
-              <td>S1 Fisika Reguler</td>
-            </tr>
-            <tr>
-              <td><a href="#">5679</a></td>
-              <td>2</td>
-              <td>2017</td>
-              <td>KOSONG</td>
-              <td>UUI</td>
-              <td>S1 Fisika Reguler</td>
-              <td>S1 Biologi Reguler</td>
-              <td>KOSONG</td>
-            </tr>
-            <tr>
-              <td><a href="#">5194</a></td>
-              <td>2</td>
-              <td>2017</td>
-              <td>1292312348</td>
-              <td>SEMAS PASCASARJANA</td>
-              <td>S2 Ilmu Komputer Reguler</td>
-              <td>KOSONG</td>
-              <td>KOSONG</td>
-            </tr>
-            <tr>
-              <td><a href="#">1238</a></td>
-              <td>1</td>
-              <td>2017</td>
-              <td>1234512900</td>
-              <td>SEMAS SARJANA</td>
-              <td>S1 Ilmu Komputer Reguler</td>
-              <td>S1 Biologi Reguler</td>
-              <td>S1 Fisika Reguler</td>
-            </tr>
-            <tr>
-              <td><a href="#">1876</a></td>
-              <td>1</td>
-              <td>2017</td>
-              <td>1234466345</td>
-              <td>SEMAS SARJANA</td>
-              <td>S1 Ilmu Komputer Reguler</td>
-              <td>S1 Biologi Reguler</td>
-              <td>S1 Fisika Reguler</td>
-            </tr>
+            <?php
+              $query = "SELECT * FROM SIRIMA.PENDAFTARAN as p left outer join sirima.pendaftaran_semas as ps on p.id = ps.id_pendaftaran order by p.id desc";
+              $result = pg_query($conn,$query);
+              $row = pg_fetch_all($result);
+              foreach ($row as $value){
+                $jalur = "";
+                if($value["no_kartu_ujian"] == null){
+                  $jalur = "UUI";
+                }else{
+                  $jalur = "SEMAS";
+                }
+                echo "<tr>";
+                echo "<td>".$value['id']."</td><td>".$value['nomor_periode']."</td><td>".$value['tahun_periode']."</td><td>".$value['no_kartu_ujian']."</td><td>".$jalur."</td>";
+                echo "</tr>";
+              }
+            ?>
           </tbody>
         </table>
       </div>

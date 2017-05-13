@@ -1,3 +1,9 @@
+<?php
+include('src/php/classes/DBConnection.class.php');
+
+$DBConn = new DBConnection("postgres", "postgres", "pop08521125");
+$conn = $DBConn->conn;
+ ?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -7,35 +13,32 @@
     <link rel="stylesheet" type="text/css" href="src/css/style.css">
   </head>
   <body>
-    <nav class="navbar navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#">SiR1Ma</a>
-        </div>
-        <ul class="nav navbar-nav">
-          <li><a href="#">Home</a></li>
-          <li class="active"><a href="#">Melihat Kartu Ujian</a></li>
-          <li><a href="#">Page 2</a></li>
-        </ul>
-        <form class="navbar-form navbar-right">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Search">
-          </div>
-          <button type="submit" class="btn btn-default">Submit</button>
-        </form>
-      </div>
-    </nav>
     <?php include 'header.php'; ?>
     <div class="container">
         <h1 class="text-center"><b>Kartu Ujian</b></h1>
           <div class="detail-container">
-            <ul class="detail-pendaftaran">
-              <li>Id Pendaftaran : 1234</li>
-              <li>Nama Lengkap :  Tania Putri</li>
-              <li>No Kartu Ujian : 1234512345</li>
-              <li>Lokasi ujian : Kampus ABC, Depok</li>
-              <li>Waktu ujian : 3 Juni 2017 08.00 WIB - 3 Juni 2017 10.00 WIB</li>
-            </ul>
+            <?php
+            $nopen = $_POST['nomor-pendaftaran'];
+            $query = " SELECT id,nama_lengkap,no_kartu_ujian,lokasi_kota,lokasi_tempat,waktu_mulai,waktu_selesai
+            from sirima.pendaftaran AS p, sirima.pelamar AS pl, sirima.pendaftaran_semas AS ps,sirima.jadwal_penting AS jp, sirima.lokasi_ujian AS lu, sirima.lokasi_jadwal AS lj
+            where p.pelamar = pl.username and ps.id_pendaftaran = p.id and ps.lokasi_kota = lu.kota and ps.lokasi_tempat = lu.tempat and lj.waktu_awal = jp.waktu_mulai and lu.kota = lj.kota and lu.tempat = lj.tempat AND id = $nopen";
+            $result = pg_query($conn,$query);
+            $row = pg_fetch_all($result);
+            if($row==null){
+              echo "ID tidak ditemukan";
+            }else{
+              foreach ($row as $value){
+                echo "<ul class = 'detail-pendaftaran'>";
+                echo "<li>Id Pendaftaran : ".$value['id']."</li>";
+                echo "<li>Nama Lengkap : ".$value['nama_lengkap']."</li>";
+                echo "<li>No Kartu Ujian : ".$value['no_kartu_ujian']."</li>";
+                echo "<li>Lokasi Ujian : ".$value['lokasi_tempat']." ,".$value['lokasi_kota']."</li>";
+                echo "<li>Waktu Ujian : ".$value['waktu_mulai']." - ".$value['waktu_selesai']."</li>";
+                echo "</ul>";
+              }
+            }
+
+             ?>
         </div>
     </div>
   </body>
