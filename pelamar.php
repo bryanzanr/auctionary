@@ -28,9 +28,52 @@
 
 	}
 
+	function insertAkun(){
+
+		$conn = connectDB();
+
+		$username = $_POST['namauser'];
+		$sql = "SELECT username FROM SIRIMA.AKUN WHERE username = '$namauser'";
+		$result = pg_query($conn,$sql);
+		if ($result !== null){
+			echo  "<script type='text/javascript'>alert('Username sudah ada');</script>";
+		}else {
+			$password = $_POST['katakunci'];
+			$repeatPassword = $_POST['ulangpassword'];
+			if ($password !== $repeatPassword){
+				echo  "<script type='text/javascript'>alert('Password tidak sama');</script>";
+			}else {
+				$sql = "INSERT INTO SIRIMA.AKUN (username,role,password) VALUES ('$username',FALSE,'$password'";
+				pg_query($conn,$sql);
+				$surat = $_POST['emailaddress'];
+				$ulangsurat = $_POST['repeatemail'];
+				if ($surat !== $ulangsurat){
+					echo  "<script type='text/javascript'>alert('E-mail tidak sama');</script>";
+				}else {
+					$fullname = $_POST['namalengkap'];
+					$idnumber = $_POST['nomorktp'];
+					$gender = $_POST['jeniskelamin'];
+					$birthdate = $_POST['ulangtahun'];
+					$homeaddress = $_POST['alamatrumah'];
+					$sql = "INSERT INTO SIRIMA.PELAMAR (username,nama_lengkap,alamat,jenis_kelamin,tanggal_lahir,no_ktp,email) VALUES ('$username','$fullname','$homeaddress','$gender','$birthdate','$idnumber','$surat'";
+					if($result = pg_query($conn, $sql)) {
+						echo  "<script type='text/javascript'>alert('Pendaftaran Berhasil');</script>";
+						header("Location: pelamar.php");
+						} else {
+						die("Error: $sql");
+					}
+					pg_close($conn);
+				}
+			}
+		}
+
+	}
+
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		if($_POST['command'] === 'logout') {
 			keluar();
+		}else if ($_POST['command'] === 'insert'){
+			insertAkun();
 		}
 	}
 
@@ -94,7 +137,7 @@
 	                    <h4 class="modal-title black-modal" id="insertModalLabel">Pendaftaran Akun Pelamar</h4>
 	                </div>
 	                <div class="modal-body">
-	                    <form action="admin.php" method="post">
+	                    <form action="pelamar.php" method="post">
 	                        <div class="form-group">
 	                            <label for="namauser">Username</label>
 	                            <input type="text" class="form-control" id="insert-namauser" name="username" placeholder="Masukkan Username Anda ..." required pattern="[A-Za-z0-9.]*" title="Username harus berupa huruf, angka, atau titik">
@@ -117,7 +160,7 @@
 	                        </div>
 	                        <div class="form-group">
 	                        	<label for="jenisKelamin">Jenis kelamin</label>
-	                        	<select name="jenisKelamin" required>
+	                        	<select class="from-control" id="insert-jeniskelamin" name="jenisKelamin">
 	                        		<option value="Pria">Laki-Laki</option>
 	                        		<option value="Wanita">Perempuan</option>
 	                        	</select>
@@ -139,7 +182,7 @@
 	                            <input type="email" class="form-control" id="insert-repeatemail" name="repeatEmail" placeholder="Masukkan Kembali Alamat Email Anda ..." required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="Masukkan email yang benar">
 	                        </div>
 	                        <input type="hidden" id="insert-command" name="command" value="insert">
-	                        <button type="submit" class="btn btn-primary">DAFTAR</button>
+	                        <button type="button" class="btn btn-primary">DAFTAR</button>
 	                    </form>
 	                </div>
 	            </div>
@@ -154,102 +197,7 @@
 			</div>
 		</div>
 		<div id="products" class="row list-group">
-			<!--<?php
-			$arraybook = selectBooks();
-			for ($i=0; $i < count($arraybook); $i++) { 
-				$buku = selectAllFromBook($arraybook[$i]);
-				while ($row = pg_fetch_row($buku)) {
-					echo '
-					<div class="item  col-xs-4 col-lg-4">
-						<div class="thumbnail">
-							<img class="list-group-image" style="width:300px; height:300px;" src="'.$row[1].'" />
-							<div class="caption">
-								<h4 class="title-book">'.$row[2].'</h4>
-								<p class="list-group-item-text">Penulis : '.$row[3].'</p>
-								<p class="list-group-item-text">Penerbit : '.$row[4].'</p>';
-								echo '
-								<div class="row">
-									<div class="col-md-6">
-										<button type="button" class="btn btn-default" style="width:100%;" data-toggle="modal" data-target="#detailModal" onclick="detailBuku('.$row[0].')">
-										Detail
-										</button>
-									</div>
-									<div id="tombolPinjam'.$row[0].'" class="col-md-6">
-										<form action="home.php" method="post">
-											<input type="hidden" name="book_id" value="'.$row[0].'">
-											<input type="hidden" name="command" value="balik">
-											<button type="submit" class="btn btn-default" style="width:100%;">Balik</button>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					';
-				}
-			}
-			?>-->
 		</div>
-		<div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title black-modal" id="detailModalLabel">Detail Buku</h4>
-                        </div>
-                        <div class="modal-body">
-							<fieldset>
-                        		<legend>Display Buku</legend>
-								<div id="displayBuku">
-								</div>
-							</fieldset>
-							<fieldset>
-                        		<legend>Judul Buku</legend>
-								<div id="judulBuku">
-								</div>
-							</fieldset>
-                        	<fieldset>
-                        		<legend>Deskripsi Buku</legend>
-								<div id="deskripsiBuku">
-								</div>
-							</fieldset>
-							<div style="overflow-x:auto;">
-								<table class='table'>
-									<thead> <tr><th>Book ID</th> <th>Pengarang</th> <th>Penerbit</th> <th>Stock</th> </tr> </thead>
-									<tbody id="detailBuku">
-									</tbody>
-								</table>
-							</div>
-							<!--<?php
-								echo '
-									<div style="overflow-x:auto;">
-										<table class="table">
-											<thead> <tr><th>Review ID</th> <th>Book ID</th> <th>User ID</th> <th>Date</th> </tr> </thead>
-											<tbody id="detailReview">
-											</tbody>
-										</table>
-									</div>
-									<fieldset>
-										<legend>Review Buku</legend>
-										<div id="reviewBuku">
-										</div>
-									</fieldset>';
-								if(isset($_SESSION['namauser']) && $_SESSION['role'] === 'user') {
-									echo 
-									'<div class="form-group">
-										<label for="reviewBuku">Review Buku</label>
-										<input type="text" class="form-control" id="update-reviewBuku" name="reviewBuku" placeholder="Review Buku">
-									</div>
-									<button type="button" class="btn btn-default" style="width:100%;" onclick="komenBuku(';
-									echo $_SESSION["user_id"];
-									echo ')">Submit</button><br>';
-									echo '<br><div id="detailPinjam"></div>';
-								}
-                            ?>-->
-                        </div>
-                    </div>
-                </div>
-            </div>
 	</div>
 </body>
 <footer>
