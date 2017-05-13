@@ -14,6 +14,10 @@
 
 	if(!isset($_SESSION["namauser"])) {
 		header("Location: index.php");
+	}else{
+		if ($_SESSION["role"] === 't'){
+			header("Location: admin.php");
+		}
 	}
 
 	function keluar(){
@@ -39,6 +43,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="src/css/pelamar.css">
+	<script type="text/javascript" src="src/js/jquery-3.1.0.min.js"></script>
+	<script type="text/javascript" src="bootstrap/dist/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="src/js/pelamar.js"></script>	
+	<script type="text/javascript" src="src/js/ajax.js"></script>
 </head>
 <body>
 	<div class="jumbotron">
@@ -54,34 +62,10 @@
 		</h2>
 		</div>
 	</div>
-	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="insertModalLabel">LOGIN</h4>
-				</div>
-				<div class="modal-body">
-					<form action="index.php" method="post">
-						<div class="form-group">
-							<label for="username">Username</label>
-							<input type="text" class="form-control" id="insert-username" name="username" placeholder="Username">
-						</div>
-						<div class="form-group">
-							<label for="password">Password</label>
-							<input type="password" class="form-control" id="insert-password" name="password" placeholder="Password">
-						</div>
-						<input type="hidden" id="insert-command" name="command" value="insert">
-						<button type="submit" class="btn btn-primary">LOGIN</button>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				 <a class="navbar-brand" href="pelamar.html">SIRIMA</a>
+				 <a class="navbar-brand" href="pelamar.php">SIRIMA</a>
 			</div>
 			<ul class="nav navbar-nav">
 				<li><a href="pendaftaran-semas.php">Membuat Pendaftaran</a></li>
@@ -92,8 +76,7 @@
 			<ul class="nav navbar-nav navbar-right">
 				<?php
 					if (isset($_SESSION["namauser"])){
-						echo "<form action='pelamar.php' method='post'><button type='submit' class='btn btn-'><span class='glyphicon glyphicon-log-out'></span>Logout</button><input type='hidden' id='logout-command' name='command' value='logout'></form>";
-						//echo "<li><a href='index.php'><span class='glyphicon glyphicon-log-out'></span>Logout</a></li>";
+						echo "<form class='form-inline navbar-form navbar-left' action='admin.php' method='post'><button type='submit' class='btn btn-'><span class='glyphicon glyphicon-log-out'></span>Logout</button><input type='hidden' id='logout-command' name='command' value='logout'></form>";
 					}
 				?>
 			</ul>
@@ -114,15 +97,15 @@
 	                    <form action="admin.php" method="post">
 	                        <div class="form-group">
 	                            <label for="namauser">Username</label>
-	                            <input type="text" class="form-control" id="insert-namauser" name="username" placeholder="Masukkan Username Anda ..." required>
+	                            <input type="text" class="form-control" id="insert-namauser" name="username" placeholder="Masukkan Username Anda ..." required pattern="[A-Za-z0-9.]*" title="Username harus berupa huruf, angka, atau titik">
 	                        </div>
 	                        <div class="form-group">
 	                            <label for="katakunci">Password</label>
-	                            <input type="password" class="form-control" id="insert-katakunci" name="kataKunci" placeholder="Masukkan Password Anda ..." required>
+	                            <input type="password" class="form-control" id="insert-katakunci" name="kataKunci" placeholder="Masukkan Password Anda ..." required pattern=".{6,}" title="Password minimal 6 karakter">
 	                        </div>
 	                        <div class="form-group">
 	                            <label for="ulangpassword">Ulangi password</label>
-	                            <input type="password" class="form-control" id="insert-ulangpassword" name="ulangPassword" placeholder="Masukkan Kembali Password Anda ..." required>
+	                            <input type="password" class="form-control" id="insert-ulangpassword" name="ulangPassword" placeholder="Masukkan Kembali Password Anda ..." required pattern=".{6,}" title="Password minimal 6 karakter">
 	                        </div>
 	                        <div class="form-group">
 	                            <label for="namalengkap">Nama lengkap</label>
@@ -130,7 +113,7 @@
 	                        </div>
 	                        <div class="form-group">
 	                            <label for="nomorktp">Nomor Identitas</label>
-	                            <input type="text" class="form-control" id="insert-nomorktp" name="nomorKtp" placeholder="Masukkan Nomor Identitas Anda ..." required>
+	                            <input type="text" class="form-control" id="insert-nomorktp" name="nomorKtp" placeholder="Masukkan Nomor Identitas Anda ..." required pattern="[0-9]{16}">
 	                        </div>
 	                        <div class="form-group">
 	                        	<label for="jenisKelamin">Jenis kelamin</label>
@@ -149,11 +132,11 @@
 	                        </div>
 	                        <div class="form-group">
 	                            <label for="emailaddress">Alamat email</label>
-	                            <input type="email" class="form-control" id="insert-emailaddress" name="emailAddress" placeholder="Masukkan Alamat Email Anda ..." required>
+	                            <input type="email" class="form-control" id="insert-emailaddress" name="emailAddress" placeholder="Masukkan Alamat Email Anda ..." required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="Masukkan email yang benar">
 	                        </div>
 	                        <div class="form-group">
 	                            <label for="repeatemail">Ulangi email</label>
-	                            <input type="email" class="form-control" id="insert-repeatemail" name="repeatEmail" placeholder="Masukkan Kembali Alamat Email Anda ..." required>
+	                            <input type="email" class="form-control" id="insert-repeatemail" name="repeatEmail" placeholder="Masukkan Kembali Alamat Email Anda ..." required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="Masukkan email yang benar">
 	                        </div>
 	                        <input type="hidden" id="insert-command" name="command" value="insert">
 	                        <button type="submit" class="btn btn-primary">DAFTAR</button>
@@ -165,9 +148,9 @@
 		<div class="well well-sm">
 			<strong>Tampilan</strong>
 			<div class="btn-group">
-				<a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
-				</span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span
-				class="glyphicon glyphicon-th"></span>Grid</a>
+				<a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-leaf">
+				</span>Black</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span
+				class="glyphicon glyphicon-fire"></span>Blue</a>
 			</div>
 		</div>
 		<div id="products" class="row list-group">
@@ -268,10 +251,6 @@
                 </div>
             </div>
 	</div>
-	<script type="text/javascript" src="src/js/jquery-3.1.0.min.js"></script>
-	<script type="text/javascript" src="bootstrap/dist/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="src/js/pelamar.js"></script>	
-	<script type="text/javascript" src="src/js/ajax.js"></script>
 </body>
 <footer>
 	<hr>

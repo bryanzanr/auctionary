@@ -1,149 +1,40 @@
-<!--<?php
-	/*session_start();
-	function connectDB() {
-		$servername = "localhost";
-		$username = "root";
-		$password = "";
-		$dbname = "test";
-		
-		// Create connection
-		$conn = pg_connect($servername, $username, $password, $dbname);
-		
-		// Check connection
-		if (!$conn) {
-			die("Connection failed: " + pg_connect_error());
-		}
-		return $conn;
-	}
+<?php
 	
-	function daftarBuku($table) {
-		$conn = connectDB();
-		
-		$sql = "SELECT book_id, img_path, title, author, publisher, quantity FROM $table";
-		
-		if(!$result = pg_query($conn, $sql)) {
-			die("Error: $sql");
+	session_start();
+	function connectDB() {
+
+		$databaseConnection = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=postgres");
+	
+		if (!$databaseConnection){
+			die ("Connection to database failed");
 		}
-		pg_close($conn);
-		return $result;
+		return $databaseConnection;
+	
 	}
 
-	function selectRowsFromLoan() {
-		$conn = connectDB();
-
-		$sql = "SELECT * FROM loan WHERE user_id = ".$_SESSION["user_id"]."";
-		if(!$result = pg_query($conn, $sql)) {
-			die("Error: $sql");
-		}
-		pg_close($conn);
-		return $result;
-	}
-
-	function pinjamBuku($book_id, $user_id) {
-		$conn = connectDB();
-		$sqlloan = "INSERT into loan (book_id, user_id) values ('$book_id','$user_id')";
-
-		$sqlbook = "UPDATE book SET quantity = quantity-1 where book_id = $book_id";
-		if(!$result = pg_query($conn, $sqlloan)) {
-			die("Error: $sqlloan");
-		}
-		if(!$result = pg_query($conn, $sqlbook)) {
-			die("Error: $sqlbook");
-		}
-		pg_close($conn);
-		header("Location: daftar.php");
-	}
-
-	function balikBuku($book_id, $user_id) {
-		$conn = connectDB($book_id, $user_id);
-		$sqlloan = "DELETE FROM loan WHERE book_id = $book_id AND user_id = $user_id";
-
-		$sqlbook = "UPDATE book SET quantity = quantity+1 where book_id = $book_id";
-		if(!$result = pg_query($conn, $sqlloan)) {
-			die("Error: $sqlloan");
-		}
-		if(!$result = pg_query($conn, $sqlbook)) {
-			die("Error: $sqlbook");
-		}
-		pg_close($conn);
-		header("Location: daftar.php");
-	}
-
-	function showActButton($arrayloan, $bookid, $stocknum) {
-		$flag = false;
-		for ($i=0; $i < count($arrayloan); $i++) { 
-			if ($arrayloan[$i] == $bookid) {
-				echo '
-				<form action="daftar.php" method="post">
-					<input type="hidden" name="book_id" value="'.$bookid.'">
-					<input type="hidden" name="command" value="balik">
-					<button type="submit" class="btn btn-default" style="width:100%;">Balik</button>
-				</form>
-				';
-				$flag = true;
-			}
-		}
-		if($flag == false) {
-			if($stocknum > 0) {
-				echo '
-				<form action="daftar.php" method="post">
-					<input type="hidden" name="book_id" value="'.$bookid.'">
-					<input type="hidden" name="command" value="pinjam">
-					<button type="submit" class="btn btn-default" style="width:100%;">Pinjam</button>
-				</form>
-				';
-			}
+	if(!isset($_SESSION["namauser"])) {
+		header("Location: index.php");
+	}else{
+		if ($_SESSION["role"] === 'f'){
+			header("Location: pelamar.php");
 		}
 	}
 
-	function insertBuku() {
-		$conn = connectDB();
-		
-		$displayBuku = $_POST['displayBuku'];
-		$judulBuku = $_POST['judulBuku'];
-		$pengarangBuku = $_POST['pengarangBuku'];
-		$penerbitBuku = $_POST['penerbitBuku'];
-		$deskripsiBuku = $_POST['deskripsiBuku'];
-		$stokBuku = $_POST['stokBuku'];
+	function keluar(){
 
-		$daftarbuku = daftarBuku("book");
-		$sdhAda = false;
-		$bookid = 0;
-		while ($row = pg_fetch_row($daftarbuku)) {	
-			if($row[2] == $judulBuku) {
-				$sdhAda = true;
-				$bookid = $row[0];
-				break;
-			}
-		}
-		$_SESSION["titlebookadded"] = $judulBuku;
-		
-		if($sdhAda == true) {
-			$sql = "UPDATE book SET quantity = quantity + $stokBuku where book_id = $bookid";
-		} else {
-			$sql = "INSERT into book (img_path, title, author, publisher, description, quantity) values('$displayBuku', '$judulBuku', '$pengarangBuku', '$penerbitBuku', '$deskripsiBuku', $stokBuku)";
-		}
+		session_unset();
+		session_destroy();
+		header("Location: index.php");
 
-		if($result = pg_query($conn, $sql)) {
-			echo "New record created successfully <br/>";
-			header("Location: detail.php");
-			} else {
-			die("Error: $sql");
-		}
-		pg_close($conn);
 	}
 
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-		if($_POST['command'] === 'insert') {
-			insertBuku();
-		}else if ($_POST['command'] === 'pinjam') {
-			pinjamBuku($_POST['book_id'],$_SESSION["user_id"]);
-		} else if ($_POST['command'] === 'balik') {
-			balikBuku($_POST['book_id'],$_SESSION["user_id"]);
+		if($_POST['command'] === 'logout') {
+			keluar();
 		}
 	}
-	*/
-?>-->
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -159,157 +50,39 @@
 			<h1 style="font-size: 5	em;">Sistem Penerimaan Mahasiswa</h1>
 			<div class="welcome-text">
 			<h2>Administrator Manajemen Fakultas <b>
-				<!--<?php
+				<?php
 				if (isset($_SESSION["namauser"])){
 					echo $_SESSION["namauser"];
-				}else {
-					echo '
-					<button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#loginModal">LOGIN</button>
-					';
 				}
-				?>--></b>
+				?></b>
 			</h2>
-			</div>
-		</div>
-		<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="insertModalLabel">LOGIN</h4>
-					</div>
-					<div class="modal-body">
-						<form action="index.php" method="post">
-							<div class="form-group">
-								<label for="username">Username</label>
-								<input type="text" class="form-control" id="insert-username" name="username" placeholder="Username">
-							</div>
-							<div class="form-group">
-								<label for="password">Password</label>
-								<input type="password" class="form-control" id="insert-password" name="password" placeholder="Password">
-							</div>
-							<input type="hidden" id="insert-command" name="command" value="insert">
-							<button type="submit" class="btn btn-primary">LOGIN</button>
-						</form>
-					</div>
-				</div>
 			</div>
 		</div>
 		<nav class="navbar navbar-inverse">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					 <a class="navbar-brand" href="admin.html">SIRIMA</a>
+					 <a class="navbar-brand" href="admin.php">SIRIMA</a>
 				</div>
 				<ul class="nav navbar-nav">
-					<!--<?php
-					if(isset($_SESSION['namauser']) && $_SESSION['role'] === 'user') {
-						echo '
-						<li><a href="home.php">Home</a></li>
-						';
-					}
-					?>-->
 					<li><a href="form-rekap-pendaftaran.php">Rekap Pendaftaran</a></li>
 					<li><a href="form-pemilihan-prodi-pelamar.php">Daftar Pelamar </a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href='index.php'><span class='glyphicon glyphicon-log-out'></span>Logout</a></li>
-					<!--<?php
+					<?php
 						if (isset($_SESSION["namauser"])){
-							echo "";
-						}else if(!isset($_SESSION['namauser'])) {
-							echo '
-								<form class="form-inline navbar-form navbar-left" action="index.php" method="post">
-									<div class="form-group">
-										<label style="color:white;" for="username">Username</label>
-										<input type="text" class="form-control" id="insert-username" name="username" placeholder="Username" required>
-									</div>
-									<div class="form-group">
-										<label style="color:white;" for="password">Password</label>
-										<input type="password" class="form-control" id="insert-password" name="password" placeholder="Password" required>
-									</div>
-									<input type="hidden" id="insert-command" name="command" value="insert">
-									<button type="submit" class="btn btn-default">Login</button>
-								</form>
-							';
+							echo "<form class='form-inline navbar-form navbar-left' action='admin.php' method='post'><button type='submit' class='btn btn-'><span class='glyphicon glyphicon-log-out'></span>Logout</button><input type='hidden' id='logout-command' name='command' value='logout'></form>";
 						}
-					?>-->
+					?>
 				</ul>
 			</div>
 		</nav>
-		<div class="container">
-            <!--<?php
-                if (isset($_SESSION["namauser"]) && $_SESSION["role"] === "admin"){
-                    echo "";
-                }
-            ?>-->
-            <br><button type='button' class='btn-addbook btn btn-primary' data-toggle='modal' data-target='#insertModal'>
-                REGISTER
-            </button>
-            <div class="modal fade" id="insertModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-		        <div class="modal-dialog" role="document">
-		            <div class="modal-content">
-		                <div class="modal-header">
-		                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		                    <h4 class="modal-title black-modal" id="insertModalLabel">Pendaftaran Akun Pelamar</h4>
-		                </div>
-		                <div class="modal-body">
-		                    <form action="admin.php" method="post">
-		                        <div class="form-group">
-		                            <label for="namauser">Username</label>
-		                            <input type="text" class="form-control" id="insert-namauser" name="username" placeholder="Masukkan Username Anda ..." required>
-		                        </div>
-		                        <div class="form-group">
-		                            <label for="katakunci">Password</label>
-		                            <input type="password" class="form-control" id="insert-katakunci" name="kataKunci" placeholder="Masukkan Password Anda ..." required>
-		                        </div>
-		                        <div class="form-group">
-		                            <label for="ulangpassword">Ulangi password</label>
-		                            <input type="password" class="form-control" id="insert-ulangpassword" name="ulangPassword" placeholder="Masukkan Kembali Password Anda ..." required>
-		                        </div>
-		                        <div class="form-group">
-		                            <label for="namalengkap">Nama lengkap</label>
-		                            <input type="text" class="form-control" id="insert-namalengkap" name="fullname" placeholder="Masukkan Nama Lengkap Anda ..." required>
-		                        </div>
-		                        <div class="form-group">
-		                            <label for="nomorktp">Nomor Identitas</label>
-		                            <input type="text" class="form-control" id="insert-nomorktp" name="nomorKtp" placeholder="Masukkan Nomor Identitas Anda ..." required>
-		                        </div>
-		                        <div class="form-group">
-		                        	<label for="jenisKelamin">Jenis kelamin</label>
-		                        	<select name="jenisKelamin" required>
-		                        		<option value="Pria">Laki-Laki</option>
-		                        		<option value="Wanita">Perempuan</option>
-		                        	</select>
-		                        </div>
-		                        <div class="form-group">
-		                        	<label for="tanggalLahir">Tanggal lahir</label>
-		                        	<input type="date" class="form-control" id="insert-ulangtahun" name="ulangTahun" placeholder="Masukkan Tanggal Lahir Anda ..." required>
-		                        </div>
-		                        <div class="form-group">
-		                            <label for="alamatrumah">Alamat</label>
-		                            <input type="text" class="form-control" id="insert-alamatrumah" name="alamatRumah" placeholder="Masukkan Alamat Anda ..." required>
-		                        </div>
-		                        <div class="form-group">
-		                            <label for="emailaddress">Alamat email</label>
-		                            <input type="email" class="form-control" id="insert-emailaddress" name="emailAddress" placeholder="Masukkan Alamat Email Anda ..." required>
-		                        </div>
-		                        <div class="form-group">
-		                            <label for="repeatemail">Ulangi email</label>
-		                            <input type="email" class="form-control" id="insert-repeatemail" name="repeatEmail" placeholder="Masukkan Kembali Alamat Email Anda ..." required>
-		                        </div>
-		                        <input type="hidden" id="insert-command" name="command" value="insert">
-		                        <button type="submit" class="btn btn-primary">DAFTAR</button>
-		                    </form>
-		                </div>
-		            </div>
-		        </div>
-	    	</div>
+		<div class="container"> 
             <div class="well well-sm">
 		       <strong>Tampilan</strong>
 		        <div class="btn-group">
-		            <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
-		            </span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span
-		                class="glyphicon glyphicon-th"></span>Grid</a>
+		            <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-leaf">
+		            </span>Black</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span
+		                class="glyphicon glyphicon-fire"></span>Blue</a>
 		        </div>
 		    </div>
 		    <div id="products" class="row list-group">
@@ -419,13 +192,13 @@
                 </div>
             </div>
         </div>
+        <div id="footer">
+			<hr>
+			<h4>&copy; 2017 Kelompok A03. All rights reserved</h4>
+		</div>
 		<script src="src/js/jquery-3.1.0.min.js"> </script>
 		<script src="bootstrap/dist/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="src/js/admin.js"></script>
 		<script type="text/javascript" src="src/js/ajax.js"></script>		
 	</body>
-	<footer>
-		<hr>
-		<h4>&copy; 2017 Kelompok A03. All rights reserved</h4>
-	</footer>
 </html>							
