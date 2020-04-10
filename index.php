@@ -35,9 +35,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 		$_SESSION["role"] = $row["role"];
 		
 		if ($row["role"] === "user"){
-			header("Location: admin.php");
-		}else if ($row["role"] === "admin"){
 			header("Location: pelamar.php");
+		}else if ($row["role"] === "admin"){
+			header("Location: admin.php");
 		}else{
 			header("Location: index.php");
 		}
