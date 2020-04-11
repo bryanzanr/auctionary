@@ -58,7 +58,7 @@
 		$_SESSION["user_id"] = $last + 1;
 		
 		if($sdhAda == true) {
-			echo  "<script type='text/javascript'>alert('Register Gagal, username sudah ada');window.location = '../register.php';</script>";
+			echo  "<script type='text/javascript'>alert('Register Gagal, username sudah ada');window.location = './index.php';</script>";
 		} else {
 			$sql = "INSERT INTO user(username, password, role, email, nama_lengkap) VALUES('$username', '$password', LOWER('$role'), '$email', '$nama_lengkap')";
 		}

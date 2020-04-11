@@ -1,7 +1,7 @@
 function detailBuku(book_id){
 	bookPurchase(book_id);
 	$.ajax({
-		url: "https://mighty-bayou-87376.herokuapp.com/services/ajax.php",
+		url: "https://mighty-bayou-87376.herokuapp.com/src/php/ajax.php",
 		datatype: "html",
 		data: { book_id : book_id, command : "detail" },
 		method: "POST"
@@ -23,7 +23,7 @@ function detailBuku(book_id){
 }
 function bookPurchase(book_id){
 	$.ajax({
-		url: "https://mighty-bayou-87376.herokuapp.com/services/ajax.php",
+		url: "https://mighty-bayou-87376.herokuapp.com/src/php/ajax.php",
 		datatype: "html",
 		data: { book_id : book_id, command : "purchase" },
 		method: "POST"
@@ -48,11 +48,45 @@ function komenBuku(user_id){
 	var idBuku = $("#book_id").html();
 	var isi = $("#update-bookPurchase").val();
 	$.ajax({
-		url: "https://mighty-bayou-87376.herokuapp.com/services/ajax.php",
+		url: "https://mighty-bayou-87376.herokuapp.com/src/php/ajax.php",
 		datatype: "html",
 		data: { book_id : idBuku, user_id : user_id, content : isi, command : "komentar" },
 		method: "POST"
 	}).done(function(obj){
 		bookPurchase(idBuku);
+	});
+}
+
+function editBuku(book_id){
+	bookPurchase(book_id);
+	$.ajax({
+		url: "https://mighty-bayou-87376.herokuapp.com/src/php/ajax.php",
+		datatype: "html",
+		data: { book_id : book_id, command : "detail" },
+		method: "POST"
+	}).done(function(obj){
+		var temp = JSON.parse(obj);
+		$("#update-displayBuku").placeholder = temp[1];
+		$("#update-judulBuku").placeholder = temp[2];
+		$("#update-pengarangBuku").placeholder = temp[3];
+		$("#update-penerbitBuku").placeholder = temp[4];
+		$("#update-deskripsiBuku").placeholder = temp[5];
+		$("#update-stokBuku").placeholder = temp[6];
+
+		// var idBuku = $("#book_id").html();
+		var display = $("#update-displayBuku").val();
+		var judul = $("#update-judulBuku").val();
+		var pengarang = $("#update-pengarangBuku").val();
+		var penerbit = $("#update-penerbitBuku").val();
+		var deskripsi = $("#update-deskripsiBuku").val();
+		var stok = $("#update-stokBuku").val();
+		$.ajax({
+			url: "https://mighty-bayou-87376.herokuapp.com/src/php/ajax.php",
+			datatype: "html",
+			data: { book_id : book_id, displayBuku : display, judulBuku : judul, pengarangBuku: pengarang, penerbitBuku: penerbit, deskripsiBuku : deskripsi, stokBuku : stok, command : "update" },
+			method: "POST"
+		}).done(function(obj){
+			bookPurchase(book_id);
+		});
 	});
 }

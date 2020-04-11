@@ -17,9 +17,14 @@
 	}
 	
 	function daftarBuku($table) {
+		$query = $_GET['query']; 
+    // gets value sent over search form
+     
+    	$min_length = 3;
 		$conn = connectDB();
 		
-		$sql = "SELECT book_id, img_path, title, author, publisher, quantity FROM $table";
+		$sql = "SELECT book_id, img_path, title, author, publisher, quantity FROM $table
+		WHERE (`title` LIKE '%".$query."%') OR (`author` LIKE '%".$query."%')";
 		
 		if(!$result = mysqli_query($conn, $sql)) {
 			die("Error: $sql");
@@ -67,10 +72,6 @@
 		}
 		mysqli_close($conn);
 		header("Location: daftar.php");
-	}
-
-	function hapusBuku($book_id) {
-		
 	}
 
 	function showActButton($arraysubmission, $bookid, $stocknum) {
@@ -200,13 +201,6 @@
 						';
 					}
 					?>
-					<?php
-					// if(isset($_SESSION['namauser']) && $_SESSION['role'] === 'admin') {
-					// 	echo '
-					// 	<li><a href="statistik.php">Statistik</a></li>
-					// 	';
-					// }
-					?>
 					<li>
 					<form class="form-inline navbar-form" action="search.php" method="GET">
 					<div class="form-group">
@@ -215,12 +209,11 @@
 					<button class="btn btn-default" type="submit">Cari</button>
 					</form>
 					</li>
-				
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<?php
 						if (isset($_SESSION["namauser"])){
-							echo "<li><a href='logout.php'><span class='glyphicon glyphicon-log-out'></span>Logout</a></li>";
+							echo "<li><a href='services/logout.php'><span class='glyphicon glyphicon-log-out'></span>Logout</a></li>";
 						}else if(!isset($_SESSION['namauser'])) {
 							echo '
 								<form class="form-inline navbar-form navbar-left" action="index.php" method="post">
@@ -289,46 +282,6 @@
                     </div>
                 </div>
             </div>
-			<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title black-modal" id="insertModalLabel">Update Book</h4>
-                        </div>
-                        <div class="modal-body">
-                            <form action="daftar.php" method="post">
-                                <div class="form-group">
-                                    <label for="displayBuku">Display Buku</label>
-                                    <input type="url" class="form-control" id="update-displayBuku" name="displayBuku" placeholder="Link Buku">
-                                </div>
-                                <div class="form-group">
-                                    <label for="judulBuku">Judul Buku</label>
-                                    <input type="text" class="form-control" id="update-judulBuku" name="judulBuku" placeholder="Judul Buku" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="pengarangBuku">Pengarang Buku</label>
-                                    <input type="text" class="form-control" id="update-pengarangBuku" name="pengarangBuku" placeholder="Pengarang Buku">
-                                </div>
-                                <div class="form-group">
-                                    <label for="penerbitBuku">Penerbit Buku</label>
-                                    <input type="text" class="form-control" id="update-penerbitBuku" name="penerbitBuku" placeholder="Penerbit Buku">
-                                </div>
-                                <div class="form-group">
-                                    <label for="deskripsiBuku">Deskripsi Buku</label>
-                                    <input type="text" class="form-control" id="update-deskripsiBuku" name="deskripsiBuku" placeholder="Deskripsi Buku">
-                                </div>
-                                <div class="form-group">
-                                    <label for="stokBuku">Stok Buku</label>
-                                    <input type="number" class="form-control" id="update-stokBuku" name="stokBuku" placeholder="Stok Buku" required>
-                                </div>
-                                <input type="hidden" id="insert-command" name="command" value="insert">
-                                <button type="submit" class="btn btn-primary">Edit</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="well well-sm">
 		       <strong>Tampilan</strong>
 		        <div class="btn-group">
@@ -375,13 +328,13 @@
 									}else{
 										if($row[5] <= 0) {
 											echo '
-											<a href="delete.php?id='.$row[0].'"><button type="button" class="btn btn-danger" style="width:100%;">
+											<button type="button" class="btn btn-danger" style="width:100%;" data-toggle="modal" data-target="#detailModal" onclick="detailBuku('.$row[0].')">
 											Hapus
-											</button></a>
+											</button>
 											';
 										}else{
 											echo '
-											<button type="button" class="btn btn-default" style="width:100%;" data-toggle="modal" data-target="#updateModal" onclick="editBuku('.$row[0].')">
+											<button type="button" class="btn btn-default" style="width:100%;" data-toggle="modal" data-target="#updateModal" onclick="detailBuku('.$row[0].')">
 											Ubah
 											</button>
 											';
@@ -431,21 +384,21 @@
 								echo '
 									<div style="overflow-x:auto;">
 										<table class="table">
-											<thead> <tr><th>Review ID</th> <th>Book ID</th> <th>User ID</th> <th>Date</th> </tr> </thead>
+											<thead> <tr><th>Purchase ID</th> <th>Book ID</th> <th>User ID</th> <th>Date</th> </tr> </thead>
 											<tbody id="detailPurchase">
 											</tbody>
 										</table>
 									</div>
 									<fieldset>
-										<legend>Book Review</legend>
+										<legend>Book Purchase</legend>
 										<div id="bookPurchase">
 										</div>
 									</fieldset>';
 								if(isset($_SESSION['namauser']) && $_SESSION['role'] === 'user') {
 									echo 
 									'<div class="form-group">
-										<label for="bookPurchase">Book Review</label>
-										<input type="text" class="form-control" id="update-bookPurchase" name="bookPurchase" placeholder="Insert your book review ...">
+										<label for="bookPurchase">Book Purchase</label>
+										<input type="text" class="form-control" id="update-bookPurchase" name="bookPurchase" placeholder="Book Purchase">
 									</div>
 									<button type="button" class="btn btn-default" style="width:100%;" onclick="komenBuku(';
 									echo $_SESSION["user_id"];
