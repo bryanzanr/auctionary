@@ -17,8 +17,11 @@
 	}
 	
 	if(!isset($_SESSION["titlebookadded"])) {
-		header("Location: daftar.php");
+		if (!isset($_GET['id'])) {
+			header("Location: daftar.php");
+		}
 	}
+
 	
 	function daftarBuku($table) {
 		$conn = connectDB();
@@ -58,7 +61,7 @@
 		<nav class="navbar navbar-inverse">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					 <a class="navbar-brand" href="#">My Personal Library</a>
+					 <a class="navbar-brand" href="#">Auctionary</a>
 				</div>
 				<ul class="nav navbar-nav">
 					<?php
@@ -68,6 +71,7 @@
 						';
 					}
 					?>
+					<li><a href="daftar.php">Daftar Buku</a></li>
 					<li class="active"><a href="daftar.php">Detail Buku</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
@@ -92,13 +96,36 @@
             			<p>Penerbit : '.$baris[4].'</p>
             			<p>Deskripsi : 
             			'.$baris[5].'</p>
-            			<p>Jumlah buku : '.$baris[6].'</p>
+						<p>Jumlah buku : '.$baris[6].'</p>
+						<a href="daftar.php"><button type="button" class="btn btn-lg btn-default">Kembali ke halaman daftar buku</button></a>
             		';	 
             		break;
-            	}
+				}
+				if($baris[0] == $_GET["id"]) {
+            		echo '<div class="col-md-4"><img class="list-group-image" style="width:300px; height:300px;" src="'.$baris[1].'" /></div>
+            		<div class="col-md-8">
+            			<h1>'.$baris[2].'</h1>
+            			<p>Penulis : '.$baris[3].'</p>
+            			<p>Penerbit : '.$baris[4].'</p>
+            			<p>Deskripsi : 
+            			'.$baris[5].'</p>
+            			<p>Jumlah buku : '.$baris[6].'</p>
+					';
+					if(isset($_SESSION['namauser']) && $_SESSION['role'] === 'user') {
+						echo '
+							<a href="metode-pembayaran.php?id='.$_GET['id'].'"><button type="button" class="btn btn-lg btn-default">Beli Sekarang</button></a>
+							<button type="button" class="btn btn-lg btn-default">Buat Penawaran</button>
+						';
+					}else{
+						echo '
+							<button type="button" class="btn btn-lg btn-default">Lihat Penawaran</button>
+							<a href="daftar.php"><button type="button" class="btn btn-lg btn-default">Kembali ke halaman daftar buku</button></a>
+						';
+					}	 
+            		break;
+				}
             }
 			?>
-				<a href="daftar.php"><button type="button" class="btn btn-lg btn-default">Kembali ke halaman daftar buku</button></a>
 				</div>
 			</div>
 		</div>

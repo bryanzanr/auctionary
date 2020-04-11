@@ -1,5 +1,5 @@
 function detailBuku(book_id){
-	bookPurchase(book_id);
+	reviewBuku(book_id);
 	$.ajax({
 		url: "https://mighty-bayou-87376.herokuapp.com/src/php/ajax.php",
 		datatype: "html",
@@ -21,18 +21,18 @@ function detailBuku(book_id){
 		$("#detailPinjam").html($("#tombolPinjam" + book_id).html());
 	});
 }
-function bookPurchase(book_id){
+function reviewBuku(book_id){
 	$.ajax({
 		url: "https://mighty-bayou-87376.herokuapp.com/src/php/ajax.php",
 		datatype: "html",
-		data: { book_id : book_id, command : "purchase" },
+		data: { book_id : book_id, command : "review" },
 		method: "POST"
 	}).done(function(obj){
 		var temp = JSON.parse(obj);
-		$("#bookPurchase").html("");
-		$("#detailPurchase").html("");
+		$("#reviewBuku").html("");
+		$("#detailReview").html("");
 		for (var i = 0; i < temp.length; i++){
-			$("#bookPurchase").html($("#bookPurchase").html() + (i+1) + ".	" + temp[i][4] + "<br>");
+			$("#reviewBuku").html($("#reviewBuku").html() + (i+1) + ".	" + temp[i][4] + "<br>");
 			var tmp = "";
 			for (var j = 0; j < temp[i].length; j++){
 				if (j !== 4){
@@ -40,25 +40,24 @@ function bookPurchase(book_id){
 				}
 			}
 			
-			$("#detailPurchase").html($("#detailPurchase").html() +"<tr>"+ tmp +"</tr>");	
+			$("#detailReview").html($("#detailReview").html() +"<tr>"+ tmp +"</tr>");	
 		}
 	}); 
 }
 function komenBuku(user_id){
 	var idBuku = $("#book_id").html();
-	var isi = $("#update-bookPurchase").val();
+	var isi = $("#update-bookReview").val();
 	$.ajax({
 		url: "https://mighty-bayou-87376.herokuapp.com/src/php/ajax.php",
 		datatype: "html",
 		data: { book_id : idBuku, user_id : user_id, content : isi, command : "komentar" },
 		method: "POST"
 	}).done(function(obj){
-		bookPurchase(idBuku);
+		reviewBuku(idBuku);
 	});
 }
 
 function editBuku(book_id){
-	bookPurchase(book_id);
 	$.ajax({
 		url: "https://mighty-bayou-87376.herokuapp.com/src/php/ajax.php",
 		datatype: "html",
@@ -66,12 +65,12 @@ function editBuku(book_id){
 		method: "POST"
 	}).done(function(obj){
 		var temp = JSON.parse(obj);
-		$("#update-displayBuku").placeholder = temp[1];
-		$("#update-judulBuku").placeholder = temp[2];
-		$("#update-pengarangBuku").placeholder = temp[3];
-		$("#update-penerbitBuku").placeholder = temp[4];
-		$("#update-deskripsiBuku").placeholder = temp[5];
-		$("#update-stokBuku").placeholder = temp[6];
+		$("#update-displayBuku").value = temp[1];
+		$("#update-judulBuku").value = temp[2];
+		$("#update-pengarangBuku").value = temp[3];
+		$("#update-penerbitBuku").value = temp[4];
+		$("#update-deskripsiBuku").value = temp[5];
+		$("#update-stokBuku").value = temp[6];
 
 		// var idBuku = $("#book_id").html();
 		var display = $("#update-displayBuku").val();
@@ -86,7 +85,8 @@ function editBuku(book_id){
 			data: { book_id : book_id, displayBuku : display, judulBuku : judul, pengarangBuku: pengarang, penerbitBuku: penerbit, deskripsiBuku : deskripsi, stokBuku : stok, command : "update" },
 			method: "POST"
 		}).done(function(obj){
-			bookPurchase(book_id);
+			alert('Update success');
+			window.location = './daftar.php';
 		});
 	});
 }

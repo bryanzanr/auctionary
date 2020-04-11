@@ -173,7 +173,7 @@
 						<div class="thumbnail">
 							<img class="list-group-image" style="width:300px; height:300px;" src="'.$row[1].'" />
 							<div class="caption">
-								<h4 class="title-book">'.$row[2].'</h4>
+								<a href="detail.php?id='.$row[0].'"><h4 class="title-book">'.$row[2].'</h4></a>
 								<p class="list-group-item-text">Penulis : '.$row[3].'</p>
 								<p class="list-group-item-text">Penerbit : '.$row[4].'</p>';
 								echo '
@@ -233,21 +233,21 @@
 								echo '
 									<div style="overflow-x:auto;">
 										<table class="table">
-											<thead> <tr><th>Purchase ID</th> <th>Book ID</th> <th>User ID</th> <th>Date</th> </tr> </thead>
-											<tbody id="detailPurchase">
+											<thead> <tr><th>Review ID</th> <th>Book ID</th> <th>User ID</th> <th>Date</th> </tr> </thead>
+											<tbody id="detailReview">
 											</tbody>
 										</table>
 									</div>
 									<fieldset>
-										<legend>Book Purchase</legend>
-										<div id="bookPurchase">
+										<legend>Book Review</legend>
+										<div id="bookReview">
 										</div>
 									</fieldset>';
 								if(isset($_SESSION['namauser']) && $_SESSION['role'] === 'user') {
 									echo 
 									'<div class="form-group">
-										<label for="bookPurchase">Book Purchase</label>
-										<input type="text" class="form-control" id="update-bookPurchase" name="bookPurchase" placeholder="Book Purchase">
+										<label for="bookReview">Book Review</label>
+										<input type="text" class="form-control" id="update-bookReview" name="bookReview" placeholder="Book Review">
 									</div>
 									<button type="button" class="btn btn-default" style="width:100%;" onclick="komenBuku(';
 									echo $_SESSION["user_id"];
