@@ -35,9 +35,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 		$_SESSION["role"] = $row["role"];
 		
 		if ($row["role"] === "user"){
-			header("Location: pelamar.php");
+			header("Location: home.php");
 		}else if ($row["role"] === "admin"){
-			header("Location: admin.php");
+			header("Location: daftar.php");
 		}else{
 			header("Location: index.php");
 		}
@@ -81,8 +81,8 @@ mysqli_close($databaseConnection);
 					<div class="modal-body">
 						<form action="index.php" method="post">
 							<div class="form-group">
-								<label for="username">E-mail</label>
-								<input type="text" class="form-control" id="insert-username" name="username" placeholder="Insert your E-mail ..." required>
+								<label for="username">E-mail / Username</label>
+								<input type="text" class="form-control" id="insert-username" name="username" placeholder="Insert your E-mail or Username ..." required>
 							</div>
 							<div class="form-group">
 								<label for="password">Password</label>
@@ -107,8 +107,8 @@ mysqli_close($databaseConnection);
 					<div class="modal-body">
 						<form action="services/register.php" method="post">
 							<div class="form-group">
-								<label for="username">E-mail</label>
-								<input type="text" class="form-control" id="insert-username" name="username" placeholder="Insert your E-mail ..." required>
+								<label for="username">E-mail / Username</label>
+								<input type="text" class="form-control" id="insert-username" name="username" placeholder="Insert your E-mail or Username ..." required>
 							</div>
 							<div class="form-group">
 								<label for="password">Password</label>
