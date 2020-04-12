@@ -65,12 +65,12 @@ function editBuku(book_id){
 		method: "POST"
 	}).done(function(obj){
 		var temp = JSON.parse(obj);
-		$("#update-displayBuku").value = temp[1];
-		$("#update-judulBuku").value = temp[2];
-		$("#update-pengarangBuku").value = temp[3];
-		$("#update-penerbitBuku").value = temp[4];
-		$("#update-deskripsiBuku").value = temp[5];
-		$("#update-stokBuku").value = temp[6];
+		$("#update-displayBuku").val(temp[1]);
+		$("#update-judulBuku").val(temp[2]);
+		$("#update-pengarangBuku").val(temp[3]);
+		$("#update-penerbitBuku").val(temp[4]);
+		$("#update-deskripsiBuku").val(temp[5]);
+		$("#update-stokBuku").val(temp[6]);
 
 		// var idBuku = $("#book_id").html();
 		// var display = $("#update-displayBuku").val();
