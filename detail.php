@@ -77,7 +77,7 @@
 				<ul class="nav navbar-nav navbar-right">
 					<?php
 						if (isset($_SESSION["namauser"])){
-							echo "<li><a href='services/logout.php'><span class='glyphicon glyphicon-log-out'></span>Logout</a></li>";
+							echo "<li><a href='logout.php'><span class='glyphicon glyphicon-log-out'></span>Logout</a></li>";
 						}
 					?>
 				</ul>
@@ -111,14 +111,15 @@
             			'.$baris[5].'</p>
             			<p>Jumlah buku : '.$baris[6].'</p>
 					';
+					$lelang = 1;
 					if(isset($_SESSION['namauser']) && $_SESSION['role'] === 'user') {
 						echo '
 							<a href="metode-pembayaran.php?id='.$_GET['id'].'&harga='.$baris[6].'"><button type="button" class="btn btn-lg btn-default">Beli Sekarang</button></a>
-							<button type="button" class="btn btn-lg btn-default" data-toggle="modal" data-target="#detailModal" onclick="detailBuku('.$_GET['id'].',"lelang")">Buat Penawaran</button>
+							<button type="button" class="btn btn-lg btn-default" data-toggle="modal" data-target="#detailModal" onclick="detailBuku('.$_GET['id'].','.$lelang.')">Buat Penawaran</button>
 						';
 					}else{
 						echo '
-							<button type="button" class="btn btn-lg btn-default" data-toggle="modal" data-target="#detailModal" onclick="detailBuku('.$_GET['id'].',"lelang")">Lihat Penawaran</button>
+							<button type="button" class="btn btn-lg btn-default" data-toggle="modal" data-target="#detailModal" onclick="detailBuku('.$_GET['id'].','.$lelang.')">Lihat Penawaran</button>
 							<a href="daftar.php"><button type="button" class="btn btn-lg btn-default">Kembali ke halaman daftar buku</button></a>
 						';
 					}	 
@@ -175,6 +176,7 @@
 									</fieldset>';
 								}
 								if(isset($_SESSION['namauser']) && $_SESSION['role'] === 'user') {
+									$lelang = 1;
 									echo 
 									'<div class="form-group">
 										<label for="reviewBuku">Your Offer</label>
@@ -182,7 +184,7 @@
 									</div>
 									<button type="button" class="btn btn-default" style="width:100%;" onclick="komenBuku(';
 									echo $_SESSION["user_id"];
-									echo ',"lelang")">Tawar</button><br>';
+									echo ','.$lelang.')">Tawar</button><br>';
 									echo '<br><div id="detailPinjam"></div>';
 								}
                             ?>

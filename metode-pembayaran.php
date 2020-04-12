@@ -134,7 +134,7 @@
             // <li><p href="#">Total Barang:  '.$qty.'</p></li>
             // ';
             echo '
-            <li><p href="#">Jumlah: Rp. '.$GET['harga'].'</p></li>
+            <li><p href="#">Jumlah: Rp. '.$_GET['harga'].'</p></li>
             <li><p href="#">Total Barang: 1</p></li>
             ';
             echo '

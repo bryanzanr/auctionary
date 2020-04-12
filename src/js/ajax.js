@@ -73,20 +73,20 @@ function editBuku(book_id){
 		$("#update-stokBuku").value = temp[6];
 
 		// var idBuku = $("#book_id").html();
-		var display = $("#update-displayBuku").val();
-		var judul = $("#update-judulBuku").val();
-		var pengarang = $("#update-pengarangBuku").val();
-		var penerbit = $("#update-penerbitBuku").val();
-		var deskripsi = $("#update-deskripsiBuku").val();
-		var stok = $("#update-stokBuku").val();
-		$.ajax({
-			url: "https://mighty-bayou-87376.herokuapp.com/src/php/ajax.php",
-			datatype: "html",
-			data: { book_id : book_id, displayBuku : display, judulBuku : judul, pengarangBuku: pengarang, penerbitBuku: penerbit, deskripsiBuku : deskripsi, stokBuku : stok, command : "update" },
-			method: "POST"
-		}).done(function(obj){
-			alert('Update success');
-			window.location = './daftar.php';
-		});
+		// var display = $("#update-displayBuku").val();
+		// var judul = $("#update-judulBuku").val();
+		// var pengarang = $("#update-pengarangBuku").val();
+		// var penerbit = $("#update-penerbitBuku").val();
+		// var deskripsi = $("#update-deskripsiBuku").val();
+		// var stok = $("#update-stokBuku").val();
+		// $.ajax({
+		// 	url: "https://mighty-bayou-87376.herokuapp.com/src/php/ajax.php",
+		// 	datatype: "html",
+		// 	data: { book_id : book_id, displayBuku : display, judulBuku : judul, pengarangBuku: pengarang, penerbitBuku: penerbit, deskripsiBuku : deskripsi, stokBuku : stok, command : "update" },
+		// 	method: "POST"
+		// }).done(function(obj){
+		// 	alert('Update success');
+		// 	window.location = './daftar.php';
+		// });
 	});
 }

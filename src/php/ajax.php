@@ -38,7 +38,7 @@
 		
 		$conn = connectDB();
 		
-		if ($lelang == "lelang") {
+		if ($lelang == 1) {
 			$sql = "SELECT * FROM purchase WHERE book_id = $book_id";
 		}else{
 			$sql = "SELECT * FROM review WHERE book_id = $book_id";
@@ -67,7 +67,7 @@
 		
 		date_default_timezone_set("Asia/Jakarta");
 		$date = date("Y-m-d");
-		if ($lelang == "lelang") {
+		if ($lelang == 1) {
 			$sql = "INSERT into purchase (book_id, user_id, date, content) values($book_id, $user_id, '$date', '$content')";
 		}else{
 			$sql = "INSERT into review (book_id, user_id, date, content) values($book_id, $user_id, '$date', '$content')";

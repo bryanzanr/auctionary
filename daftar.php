@@ -297,7 +297,7 @@
                             <h4 class="modal-title black-modal" id="insertModalLabel">Update Book</h4>
                         </div>
                         <div class="modal-body">
-                            <form action="" method="post">
+                            <form action="src/php/ajax.php" method="post">
                                 <div class="form-group">
                                     <label for="displayBuku">Display Buku</label>
                                     <input type="url" class="form-control" id="update-displayBuku" name="displayBuku" placeholder="Link Buku">
@@ -322,7 +322,7 @@
                                     <label for="stokBuku">Stok Buku</label>
                                     <input type="number" class="form-control" id="update-stokBuku" name="stokBuku" placeholder="Stok Buku" required>
                                 </div>
-                                <input type="hidden" id="insert-command" name="command" value="insert">
+                                <input type="hidden" id="update-command" name="command" value="update">
                                 <button type="submit" class="btn btn-primary">Edit</button>
                             </form>
                         </div>
