@@ -34,11 +34,15 @@
 		
 	}
 	
-	function reviewBuku($book_id) {
+	function reviewBuku($book_id, $lelang) {
 		
 		$conn = connectDB();
 		
-		$sql = "SELECT * FROM review WHERE book_id = $book_id";
+		if ($lelang == "lelang") {
+			$sql = "SELECT * FROM purchase WHERE book_id = $book_id";
+		}else{
+			$sql = "SELECT * FROM review WHERE book_id = $book_id";
+		}
 		
 		if(!$result = mysqli_query($conn, $sql)) {
 			die("Error: $sql");
@@ -57,13 +61,17 @@
 	}
 
 	
-	function komenBuku($book_id,$user_id,$content) {
+	function komenBuku($book_id,$user_id,$content,$lelang) {
 		
 		$conn = connectDB();
 		
 		date_default_timezone_set("Asia/Jakarta");
 		$date = date("Y-m-d");
-		$sql = "INSERT into review (book_id, user_id, date, content) values($book_id, $user_id, '$date', '$content')";
+		if ($lelang == "lelang") {
+			$sql = "INSERT into purchase (book_id, user_id, date, content) values($book_id, $user_id, '$date', '$content')";
+		}else{
+			$sql = "INSERT into review (book_id, user_id, date, content) values($book_id, $user_id, '$date', '$content')";
+		}
 		
 		if(!$result = mysqli_query($conn, $sql)) {
 			die("Error: $sql");
@@ -92,10 +100,10 @@
 			$detail = detailBuku($_POST['book_id']);
 			echo $detail;
 		}else if ($_POST['command'] === 'review'){
-			$review = reviewBuku($_POST['book_id']);
+			$review = reviewBuku($_POST['book_id'], $_POST['auction']);
 			echo $review;
 		}else if ($_POST['command'] === 'komentar'){
-			$komen = komenBuku($_POST['book_id'],$_POST['user_id'],$_POST['content']);
+			$komen = komenBuku($_POST['book_id'],$_POST['user_id'],$_POST['content'], $_POST['auction']);
 			echo $komen;
 		}else if ($_POST['command'] === 'update'){
 			$komen = updateBuku($_POST['book_id'],$_POST['displayBuku'], $_POST['judulBuku'], $_POST['pengarangBuku'], $_POST['penerbitBuku'], $_POST['deskripsiBuku'], $_POST['stokBuku']);

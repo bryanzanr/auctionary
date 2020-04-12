@@ -113,12 +113,12 @@
 					';
 					if(isset($_SESSION['namauser']) && $_SESSION['role'] === 'user') {
 						echo '
-							<a href="metode-pembayaran.php?id='.$_GET['id'].'"><button type="button" class="btn btn-lg btn-default">Beli Sekarang</button></a>
-							<button type="button" class="btn btn-lg btn-default">Buat Penawaran</button>
+							<a href="metode-pembayaran.php?id='.$_GET['id'].'&harga='.$baris[6].'"><button type="button" class="btn btn-lg btn-default">Beli Sekarang</button></a>
+							<button type="button" class="btn btn-lg btn-default" data-toggle="modal" data-target="#detailModal" onclick="detailBuku('.$_GET['id'].',"lelang")">Buat Penawaran</button>
 						';
 					}else{
 						echo '
-							<button type="button" class="btn btn-lg btn-default">Lihat Penawaran</button>
+							<button type="button" class="btn btn-lg btn-default" data-toggle="modal" data-target="#detailModal" onclick="detailBuku('.$_GET['id'].',"lelang")">Lihat Penawaran</button>
 							<a href="daftar.php"><button type="button" class="btn btn-lg btn-default">Kembali ke halaman daftar buku</button></a>
 						';
 					}	 
@@ -128,6 +128,68 @@
 			?>
 				</div>
 			</div>
+			<div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title black-modal" id="detailModalLabel">Detail Buku</h4>
+                        </div>
+                        <div class="modal-body">
+							<fieldset>
+                        		<legend>Display Buku</legend>
+								<div id="displayBuku">
+								</div>
+							</fieldset>
+							<fieldset>
+                        		<legend>Judul Buku</legend>
+								<div id="judulBuku">
+								</div>
+							</fieldset>
+                        	<fieldset>
+                        		<legend>Deskripsi Buku</legend>
+								<div id="deskripsiBuku">
+								</div>
+							</fieldset>
+							<div style="overflow-x:auto;">
+								<table class='table'>
+									<thead> <tr><th>Book ID</th> <th>Pengarang</th> <th>Penerbit</th> <th>Stock</th> </tr> </thead>
+									<tbody id="detailBuku">
+									</tbody>
+								</table>
+							</div>
+							<?php
+								if(isset($_SESSION['namauser']) && $_SESSION['role'] === 'admin') {
+									echo '
+									<div style="overflow-x:auto;">
+										<table class="table">
+											<thead> <tr><th>Offer ID</th> <th>Book ID</th> <th>User ID</th> <th>Date</th> </tr> </thead>
+											<tbody id="detailReview">
+											</tbody>
+										</table>
+									</div>
+									<fieldset>
+										<legend>Book Offer</legend>
+										<div id="reviewBuku">
+										</div>
+									</fieldset>';
+								}
+								if(isset($_SESSION['namauser']) && $_SESSION['role'] === 'user') {
+									echo 
+									'<div class="form-group">
+										<label for="reviewBuku">Your Offer</label>
+										<input type="text" class="form-control" id="update-reviewBuku" name="reviewBuku" placeholder="Insert your offer here ...">
+									</div>
+									<button type="button" class="btn btn-default" style="width:100%;" onclick="komenBuku(';
+									echo $_SESSION["user_id"];
+									echo ',"lelang")">Tawar</button><br>';
+									echo '<br><div id="detailPinjam"></div>';
+								}
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
 		</div>
 		<script src="src/js/jquery-3.1.0.min.js"> </script>
 		<script src="bootstrap/dist/js/bootstrap.min.js"></script>

@@ -1,5 +1,5 @@
-function detailBuku(book_id){
-	reviewBuku(book_id);
+function detailBuku(book_id, lelang){
+	reviewBuku(book_id, lelang);
 	$.ajax({
 		url: "https://mighty-bayou-87376.herokuapp.com/src/php/ajax.php",
 		datatype: "html",
@@ -21,11 +21,11 @@ function detailBuku(book_id){
 		$("#detailPinjam").html($("#tombolPinjam" + book_id).html());
 	});
 }
-function reviewBuku(book_id){
+function reviewBuku(book_id, lelang){
 	$.ajax({
 		url: "https://mighty-bayou-87376.herokuapp.com/src/php/ajax.php",
 		datatype: "html",
-		data: { book_id : book_id, command : "review" },
+		data: { book_id : book_id, command : "review" , auction: lelang},
 		method: "POST"
 	}).done(function(obj){
 		var temp = JSON.parse(obj);
@@ -44,16 +44,16 @@ function reviewBuku(book_id){
 		}
 	}); 
 }
-function komenBuku(user_id){
+function komenBuku(user_id, lelang){
 	var idBuku = $("#book_id").html();
-	var isi = $("#update-bookReview").val();
+	var isi = $("#update-reviewBuku").val();
 	$.ajax({
 		url: "https://mighty-bayou-87376.herokuapp.com/src/php/ajax.php",
 		datatype: "html",
-		data: { book_id : idBuku, user_id : user_id, content : isi, command : "komentar" },
+		data: { book_id : idBuku, user_id : user_id, content : isi, command : "komentar", auction: lelang},
 		method: "POST"
 	}).done(function(obj){
-		reviewBuku(idBuku);
+		reviewBuku(idBuku, lelang);
 	});
 }
 

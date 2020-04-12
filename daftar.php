@@ -69,9 +69,9 @@
 		header("Location: daftar.php");
 	}
 
-	function hapusBuku($book_id) {
+	// function hapusBuku($book_id) {
 		
-	}
+	// }
 
 	function showActButton($arraysubmission, $bookid, $stocknum) {
 		$flag = false;
@@ -297,7 +297,7 @@
                             <h4 class="modal-title black-modal" id="insertModalLabel">Update Book</h4>
                         </div>
                         <div class="modal-body">
-                            <form action="daftar.php" method="post">
+                            <form action="" method="post">
                                 <div class="form-group">
                                     <label for="displayBuku">Display Buku</label>
                                     <input type="url" class="form-control" id="update-displayBuku" name="displayBuku" placeholder="Link Buku">
@@ -438,14 +438,14 @@
 									</div>
 									<fieldset>
 										<legend>Book Review</legend>
-										<div id="bookReview">
+										<div id="reviewBuku">
 										</div>
 									</fieldset>';
 								if(isset($_SESSION['namauser']) && $_SESSION['role'] === 'user') {
 									echo 
 									'<div class="form-group">
-										<label for="bookReview">Book Review</label>
-										<input type="text" class="form-control" id="update-bookReview" name="bookReview" placeholder="Insert your book review ...">
+										<label for="reviewBuku">Book Review</label>
+										<input type="text" class="form-control" id="update-reviewBuku" name="reviewBuku" placeholder="Insert your book review ...">
 									</div>
 									<button type="button" class="btn btn-default" style="width:100%;" onclick="komenBuku(';
 									echo $_SESSION["user_id"];

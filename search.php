@@ -391,14 +391,14 @@
 									</div>
 									<fieldset>
 										<legend>Book Review</legend>
-										<div id="bookReview">
+										<div id="reviewBuku">
 										</div>
 									</fieldset>';
 								if(isset($_SESSION['namauser']) && $_SESSION['role'] === 'user') {
 									echo 
 									'<div class="form-group">
-										<label for="bookReview">Book Review</label>
-										<input type="text" class="form-control" id="update-bookReview" name="bookReview" placeholder="Book Review">
+										<label for="reviewBuku">Book Review</label>
+										<input type="text" class="form-control" id="update-reviewBuku" name="reviewBuku" placeholder="Book Review">
 									</div>
 									<button type="button" class="btn btn-default" style="width:100%;" onclick="komenBuku(';
 									echo $_SESSION["user_id"];
