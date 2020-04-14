@@ -27,7 +27,18 @@
 		}
 		mysqli_close($conn);
 		return $result;
-	} 
+	}
+	
+	function selectRowsFromOrders() {
+		$conn = connectDB();
+
+		$sql = "SELECT * FROM orders WHERE user_id = ".$_SESSION["user_id"]."";
+		if(!$result = mysqli_query($conn, $sql)) {
+			die("Error: $sql");
+		}
+		mysqli_close($conn);
+		return $result;
+	}
 
 	function selectBooks() {
 		$pinjam = selectRowsFromSubmission();
@@ -36,6 +47,15 @@
 			array_push($arraysubmission, $baris[1]);
 		}
 		return $arraysubmission;
+	}
+
+	function selectOrders(){
+		$arrayOrder = array();
+		$beli = selectRowsFromOrders();
+		while ($order = mysqli_fetch_row($beli)) {
+			array_push($arrayOrder, $order[1]);
+		}
+		return $arrayOrder;
 	}
 
 	function selectAllFromBook($book_id) {
@@ -189,6 +209,32 @@
 											<input type="hidden" name="command" value="balik">
 											<button type="submit" class="btn btn-default" style="width:100%;">Balik</button>
 										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					';
+				}
+			}
+			$arrayorders = selectOrders();
+			for ($i=0; $i < count($arrayorders); $i++) { 
+				$order = selectAllFromBook($arrayorders[$i]);
+				while ($row = mysqli_fetch_row($order)) {
+					echo '
+					<div class="item  col-xs-4 col-lg-4">
+						<div class="thumbnail">
+							<img class="list-group-image" style="width:300px; height:300px;" src="'.$row[1].'" />
+							<div class="caption">
+								<a href="detail.php?id='.$row[0].'"><h4 class="title-book">'.$row[2].'</h4></a>
+								<p class="list-group-item-text">Penulis : '.$row[3].'</p>
+								<p class="list-group-item-text">Penerbit : '.$row[4].'</p>';
+								echo '
+								<div class="row">
+									<div class="col-md-6">
+										<button type="button" class="btn btn-default" style="width:100%;" data-toggle="modal" data-target="#detailModal" onclick="detailBuku('.$row[0].')">
+										Detail
+										</button>
 									</div>
 								</div>
 							</div>

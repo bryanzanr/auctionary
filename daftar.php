@@ -39,6 +39,17 @@
 		return $result;
 	}
 
+	function selectRowsFromOrders() {
+		$conn = connectDB();
+
+		$sql = "SELECT * FROM orders WHERE user_id = ".$_SESSION["user_id"]."";
+		if(!$result = mysqli_query($conn, $sql)) {
+			die("Error: $sql");
+		}
+		mysqli_close($conn);
+		return $result;
+	}
+
 	function pinjamBuku($book_id, $user_id) {
 		$conn = connectDB();
 		$sqlsubmission = "INSERT into submission (book_id, user_id) values ('$book_id','$user_id')";
@@ -73,7 +84,7 @@
 		
 	// }
 
-	function showActButton($arraysubmission, $bookid, $stocknum) {
+	function showActButton($arraysubmission, $arrayorders, $bookid, $stocknum) {
 		$flag = false;
 		for ($i=0; $i < count($arraysubmission); $i++) { 
 			if ($arraysubmission[$i] == $bookid) {
@@ -88,6 +99,11 @@
 			}
 		}
 		if($flag == false) {
+			for ($i=0; $i < count($arrayorders); $i++) { 
+				if ($arrayorders[$i] == $bookid) {
+					$flag = true;
+				}
+			}
 			if($stocknum > 0) {
 				echo '
 				<form action="daftar.php" method="post">
@@ -345,8 +361,13 @@
 		            $arraysubmission = array();
 		            while ($baris = mysqli_fetch_row($daftarpinjaman)) {
 		            	array_push($arraysubmission, $baris[1]);
+					}
+					$daftarorder = selectRowsFromOrders();
+		            $arrayorders = array();
+		            while ($barisorder = mysqli_fetch_row($daftarorder)) {
+		            	array_push($arrayorders, $barisorder[1]);
 		            }
-		        }
+				}
 
 		      while ($row = mysqli_fetch_row($daftarbuku)) {
 		        echo '
@@ -371,7 +392,7 @@
 								</div>';
 								echo '<div id="tombolPinjam'.$row[0].'" class="col-md-6">';
 									if(isset($_SESSION['namauser']) && $_SESSION['role'] === 'user') {
-										showActButton($arraysubmission,$row[0],$row[5]);
+										showActButton($arraysubmission,$arrayorders,$row[0],$row[5]);
 									}
 									if(isset($_SESSION['namauser']) && $_SESSION['role'] === 'admin') {
 										if($row[5] <= 0) {
