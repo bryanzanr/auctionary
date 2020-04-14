@@ -105,7 +105,7 @@ mysqli_close($databaseConnection);
 						<h4 class="modal-title" id="insertModalLabel">Register</h4>
 					</div>
 					<div class="modal-body">
-						<form action="services/register.php" method="post">
+						<form action="register.php" method="post">
 							<div class="form-group">
 								<label for="username">E-mail / Username</label>
 								<input type="text" class="form-control" id="insert-username" name="username" placeholder="Insert your E-mail or Username ..." required>

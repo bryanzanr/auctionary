@@ -70,12 +70,16 @@
 					}
 					?>
 					<li><a href="daftar.php">Daftar Buku</a></li>
-					<li class="active"><a href="daftar.php">Detail Buku</a></li>
+					<?php
+                    echo '
+                        <li class="active"><a href="detail.php?id='.$_GET['id'].'">Detail Buku</a></li>
+                    ';
+                    ?>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<?php
 						if (isset($_SESSION["namauser"])){
-							echo "<li><a href='services/logout.php'><span class='glyphicon glyphicon-log-out'></span>Logout</a></li>";
+							echo "<li><a href='logout.php'><span class='glyphicon glyphicon-log-out'></span>Logout</a></li>";
 						}
 					?>
 				</ul>

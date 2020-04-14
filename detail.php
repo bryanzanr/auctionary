@@ -72,7 +72,11 @@
 					}
 					?>
 					<li><a href="daftar.php">Daftar Buku</a></li>
-					<li class="active"><a href="daftar.php">Detail Buku</a></li>
+					<?php
+                    echo '
+                        <li class="active"><a href="detail.php?id='.$_GET['id'].'">Detail Buku</a></li>
+                    ';
+                    ?>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<?php
@@ -117,12 +121,15 @@
 							<a href="metode-pembayaran.php?id='.$_GET['id'].'&harga='.$baris[6].'"><button type="button" class="btn btn-lg btn-default">Beli Sekarang</button></a>
 							<button type="button" class="btn btn-lg btn-default" data-toggle="modal" data-target="#detailModal" onclick="detailBuku('.$_GET['id'].','.$lelang.')">Buat Penawaran</button>
 						';
-					}else{
+					}
+					if(isset($_SESSION['namauser']) && $_SESSION['role'] === 'admin') {
 						echo '
-							<button type="button" class="btn btn-lg btn-default" data-toggle="modal" data-target="#detailModal" onclick="detailBuku('.$_GET['id'].','.$lelang.')">Lihat Penawaran</button>
-							<a href="daftar.php"><button type="button" class="btn btn-lg btn-default">Kembali ke halaman daftar buku</button></a>
+						<button type="button" class="btn btn-lg btn-default" data-toggle="modal" data-target="#detailModal" onclick="detailBuku('.$_GET['id'].','.$lelang.')">Lihat Penawaran</button>
 						';
-					}	 
+					}
+					echo '
+						<a href="daftar.php"><button type="button" class="btn btn-lg btn-default">Kembali ke halaman daftar buku</button></a>
+					'; 
             		break;
 				}
             }
