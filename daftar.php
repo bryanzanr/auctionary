@@ -372,7 +372,8 @@
 								echo '<div id="tombolPinjam'.$row[0].'" class="col-md-6">';
 									if(isset($_SESSION['namauser']) && $_SESSION['role'] === 'user') {
 										showActButton($arraysubmission,$row[0],$row[5]);
-									}else{
+									}
+									if(isset($_SESSION['namauser']) && $_SESSION['role'] === 'admin') {
 										if($row[5] <= 0) {
 											echo '
 											<a href="delete.php?id='.$row[0].'"><button type="button" class="btn btn-danger" style="width:100%;">
