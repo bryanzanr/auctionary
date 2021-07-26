@@ -20,3 +20,5 @@ order/order
 vendor/
 .swagger-codegen/
 .swagger-codegen-ignore
+
+.gitattributes
