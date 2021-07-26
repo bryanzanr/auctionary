@@ -21,7 +21,7 @@ import (
 	//
 	//    sw "github.com/myname/myrepo/go"
 	//
-	sw "github.com/bryanzanr/auctionary/go"
+	sw "github.com/bryanzanr/auctionary/cmd/web"
 )
 
 func main() {

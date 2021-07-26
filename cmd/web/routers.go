@@ -16,6 +16,9 @@ import (
 	"strings"
 
 	"github.com/gorilla/mux"
+
+	sw "github.com/bryanzanr/auctionary/internal/service"
+	utils "github.com/bryanzanr/auctionary/internal/utils"
 )
 
 type Route struct {
@@ -32,7 +35,7 @@ func NewRouter() *mux.Router {
 	for _, route := range routes {
 		var handler http.Handler
 		handler = route.HandlerFunc
-		handler = Logger(handler, route.Name)
+		handler = utils.Logger(handler, route.Name)
 
 		router.
 			Methods(route.Method).
@@ -60,139 +63,139 @@ var routes = Routes{
 		"AddPet",
 		strings.ToUpper("Post"),
 		"/v2/pet",
-		AddPet,
+		sw.AddPet,
 	},
 
 	Route{
 		"DeletePet",
 		strings.ToUpper("Delete"),
 		"/v2/pet/{petId}",
-		DeletePet,
+		sw.DeletePet,
 	},
 
 	Route{
 		"FindPetsByStatus",
 		strings.ToUpper("Get"),
 		"/v2/pet/findByStatus",
-		FindPetsByStatus,
+		sw.FindPetsByStatus,
 	},
 
 	Route{
 		"FindPetsByTags",
 		strings.ToUpper("Get"),
 		"/v2/pet/findByTags",
-		FindPetsByTags,
+		sw.FindPetsByTags,
 	},
 
 	Route{
 		"GetPetById",
 		strings.ToUpper("Get"),
 		"/v2/pet/{petId}",
-		GetPetById,
+		sw.GetPetById,
 	},
 
 	Route{
 		"UpdatePet",
 		strings.ToUpper("Put"),
 		"/v2/pet",
-		UpdatePet,
+		sw.UpdatePet,
 	},
 
 	Route{
 		"UpdatePetWithForm",
 		strings.ToUpper("Post"),
 		"/v2/pet/{petId}",
-		UpdatePetWithForm,
+		sw.UpdatePetWithForm,
 	},
 
 	Route{
 		"UploadFile",
 		strings.ToUpper("Post"),
 		"/v2/pet/{petId}/uploadImage",
-		UploadFile,
+		sw.UploadFile,
 	},
 
 	Route{
 		"DeleteOrder",
 		strings.ToUpper("Delete"),
 		"/v2/store/order/{orderId}",
-		DeleteOrder,
+		sw.DeleteOrder,
 	},
 
 	Route{
 		"GetInventory",
 		strings.ToUpper("Get"),
 		"/v2/store/inventory",
-		GetInventory,
+		sw.GetInventory,
 	},
 
 	Route{
 		"GetOrderById",
 		strings.ToUpper("Get"),
 		"/v2/store/order/{orderId}",
-		GetOrderById,
+		sw.GetOrderById,
 	},
 
 	Route{
 		"PlaceOrder",
 		strings.ToUpper("Post"),
 		"/v2/store/order",
-		PlaceOrder,
+		sw.PlaceOrder,
 	},
 
 	Route{
 		"CreateUser",
 		strings.ToUpper("Post"),
 		"/v2/user",
-		CreateUser,
+		sw.CreateUser,
 	},
 
 	Route{
 		"CreateUsersWithArrayInput",
 		strings.ToUpper("Post"),
 		"/v2/user/createWithArray",
-		CreateUsersWithArrayInput,
+		sw.CreateUsersWithArrayInput,
 	},
 
 	Route{
 		"CreateUsersWithListInput",
 		strings.ToUpper("Post"),
 		"/v2/user/createWithList",
-		CreateUsersWithListInput,
+		sw.CreateUsersWithListInput,
 	},
 
 	Route{
 		"DeleteUser",
 		strings.ToUpper("Delete"),
 		"/v2/user/{username}",
-		DeleteUser,
+		sw.DeleteUser,
 	},
 
 	Route{
 		"GetUserByName",
 		strings.ToUpper("Get"),
 		"/v2/user/{username}",
-		GetUserByName,
+		sw.GetUserByName,
 	},
 
 	Route{
 		"LoginUser",
 		strings.ToUpper("Get"),
 		"/v2/user/login",
-		LoginUser,
+		sw.LoginUser,
 	},
 
 	Route{
 		"LogoutUser",
 		strings.ToUpper("Get"),
 		"/v2/user/logout",
-		LogoutUser,
+		sw.LogoutUser,
 	},
 
 	Route{
 		"UpdateUser",
 		strings.ToUpper("Put"),
 		"/v2/user/{username}",
-		UpdateUser,
+		sw.UpdateUser,
 	},
 }
